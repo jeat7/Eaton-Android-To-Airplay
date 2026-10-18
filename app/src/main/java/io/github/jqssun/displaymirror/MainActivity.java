@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     AppBarConfiguration appBarConfig =
         new AppBarConfiguration.Builder(
-                R.id.overview_fragment, R.id.logs_fragment, R.id.settings_fragment)
+                R.id.overview_fragment, R.id.connect_fragment, R.id.help_fragment, R.id.settings_fragment)
             .build();
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);
     NavigationUI.setupWithNavController(bottomNav, navController);
@@ -232,6 +232,9 @@ public class MainActivity extends AppCompatActivity {
     navController.addOnDestinationChangedListener(
         (controller, destination, arguments) -> _updateCrossAppBackState());
     _handleLaunchIntent(getIntent());
+    if (savedInstanceState == null) {
+      getWindow().getDecorView().post(() -> Onboarding.show(this, false));
+    }
 
     MirrorDisplaylinkMonitor.init(this);
     CaptureAudio.requestPermission();
@@ -253,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
     return NavigationUI.navigateUp(
             navHostFragment.getNavController(),
             new AppBarConfiguration.Builder(
-                    R.id.overview_fragment, R.id.logs_fragment, R.id.settings_fragment)
+                    R.id.overview_fragment, R.id.connect_fragment, R.id.help_fragment, R.id.settings_fragment)
                 .build())
         || super.onSupportNavigateUp();
   }
@@ -290,6 +293,10 @@ public class MainActivity extends AppCompatActivity {
     if (State.getCurrentActivity() == this) {
       State.setCurrentActivity(null);
     }
+  }
+
+  public void openConnectTab() {
+    if (bottomNav != null) bottomNav.setSelectedItemId(R.id.connect_fragment);
   }
 
   public void startSunshine() {

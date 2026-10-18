@@ -46,6 +46,9 @@ public class OverviewFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     _initShizuku(view);
+    view.findViewById(R.id.connect_tv_btn).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.airplay_fragment));
+    view.findViewById(R.id.setup_guide_btn).setOnClickListener(v -> Onboarding.show(requireActivity(), true));
+    view.findViewById(R.id.last_device_label).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.airplay_fragment));
     _initOverlay(view);
 
     view.findViewById(R.id.sunshine_card)
@@ -91,7 +94,7 @@ public class OverviewFragment extends Fragment {
     boolean started = ShizukuUtils.hasShizukuStarted();
     boolean hasPermission = ShizukuUtils.hasPermission();
     if (!started) {
-      status.setText(R.string.status_not_started);
+      status.setText(R.string.airlink_shizuku_optional);
       btn.setVisibility(View.GONE);
     } else if (!hasPermission) {
       status.setText(
@@ -118,7 +121,7 @@ public class OverviewFragment extends Fragment {
     TextView status = view.findViewById(R.id.overlay_status);
     MaterialButton btn = view.findViewById(R.id.overlay_permission_btn);
     boolean has = Settings.canDrawOverlays(requireContext());
-    status.setText(has ? R.string.status_authorized : R.string.status_not_authorized);
+    status.setText(has ? R.string.airlink_overlay_ready : R.string.airlink_overlay_optional);
     btn.setVisibility(has ? View.GONE : View.VISIBLE);
     _updatePermissionsCard(view);
   }
@@ -127,14 +130,12 @@ public class OverviewFragment extends Fragment {
     TextView title = view.findViewById(R.id.permissions_status_title);
     TextView detail = view.findViewById(R.id.permissions_status_detail);
     ImageView icon = view.findViewById(R.id.permissions_status_icon);
-    boolean granted =
-        ShizukuUtils.hasShizukuStarted()
-            && ShizukuUtils.hasPermission()
-            && Settings.canDrawOverlays(requireContext());
-    title.setText(granted ? R.string.permissions_granted : R.string.permissions_not_granted);
-    detail.setText(
-        granted ? R.string.permissions_granted_detail : R.string.permissions_not_granted_detail);
-    icon.setImageResource(granted ? R.drawable.ic_check_circle : R.drawable.ic_error);
+    boolean overlay = Settings.canDrawOverlays(requireContext());
+    title.setText(R.string.airlink_core_ready);
+    detail.setText(overlay ? R.string.airlink_setup_optional_ready : R.string.airlink_setup_optional_not_ready);
+    icon.setImageResource(R.drawable.ic_check_circle);
+    ((TextView) view.findViewById(R.id.hero_status)).setText(
+        AirPlayService.getInstance().isConnected() ? R.string.airplay_connected : R.string.status_ready);
   }
 
   private void _updateStatus(View view) {
@@ -188,14 +189,16 @@ public class OverviewFragment extends Fragment {
     displaylinkIcon.setImageTintList(
         ColorStateList.valueOf(displaylinkActive ? activeColor : inactiveColor));
 
+    String lastName = requireContext().getSharedPreferences(Pref.PREF_NAME,
+        android.content.Context.MODE_PRIVATE).getString("airlink_last_device_name", "");
+    ((TextView) view.findViewById(R.id.last_device_label)).setText(lastName.isEmpty()
+        ? getString(R.string.airlink_no_last_device) : getString(R.string.airlink_last_device,lastName));
     // touchscreen
     View touchscreenRow = view.findViewById(R.id.touchscreen_row);
     TextView touchscreenStatus = view.findViewById(R.id.touchscreen_status);
     boolean touchscreenAvailable = MirrorTouchscreenBridge.getDefaultTarget() != null;
-    touchscreenStatus.setText(
-        touchscreenAvailable
-            ? R.string.touchscreen_control_desc
-            : R.string.touchscreen_control_desc_unavailable);
+    touchscreenStatus.setText(touchscreenAvailable ? R.string.airlink_remote_ready
+        : R.string.airlink_remote_waiting);
     touchscreenRow.setEnabled(touchscreenAvailable);
     touchscreenRow.setAlpha(touchscreenAvailable ? 1f : 0.38f);
   }

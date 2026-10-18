@@ -1,3 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Shared Eaton product palette based on read-only Eaton Vital theme inspection -->
 <resources>
+    <color name="eaton_bg">#07111F</color>
+    <color name="eaton_panel">#0D1A2B</color>
+    <color name="eaton_panel2">#12243A</color>
+    <color name="eaton_line">#213853</color>
+    <color name="eaton_text">#EEF6FB</color>
+    <color name="eaton_muted">#91A8BC</color>
+    <color name="eaton_teal">#2ED3B7</color>
+    <color name="eaton_teal_light">#7AF0DA</color>
+    <color name="eaton_amber">#FFBD66</color>
+    <color name="eaton_red">#FF7584</color>
+    <color name="eaton_blue">#72A8FF</color>
+    <color name="eaton_purple">#AE90FF</color>
 </resources>

@@ -33,6 +33,7 @@ public class Pref {
 
   // airplay
   public static final String KEY_AIRPLAY1_MODE = "airplay1_mode";
+  public static final String KEY_AIRPLAY_FOLLOW_PHONE_VOLUME = "airplay_follow_phone_volume";
   public static final String KEY_AIRPLAY_WIDTH = "airplay_width";
   public static final String KEY_AIRPLAY_HEIGHT = "airplay_height";
   public static final String KEY_AIRPLAY_REFRESH_RATE = "airplay_refresh_rate";
@@ -140,6 +141,10 @@ public class Pref {
 
   public static boolean getAirPlay1Mode() {
     return getBoolean(KEY_AIRPLAY1_MODE, false);
+  }
+
+  public static boolean getAirPlayFollowPhoneVolume() {
+    return getBoolean(KEY_AIRPLAY_FOLLOW_PHONE_VOLUME, false);
   }
 
   public static int getAirPlayWidth() {

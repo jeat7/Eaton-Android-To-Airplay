@@ -15,7 +15,7 @@ public final class MirrorTouchscreenBridge {
   public static final String ACTION_OPEN_TOUCHSCREEN =
       "io.github.jqssun.displaymirror.action.OPEN_TOUCHSCREEN";
   public static final String EXTRA_DISPLAY_ID = "display_id";
-  public static final String AUTHORITY = "io.github.jqssun.displaymirror.touchscreen";
+  public static final String AUTHORITY = "io.github.jeat7.eatonairlink.touchscreen";
   public static final Uri DISPLAYS_URI = Uri.parse("content://" + AUTHORITY + "/displays");
   public static final String COLUMN_DISPLAY_ID = "display_id";
   public static final String COLUMN_TYPE = "type";

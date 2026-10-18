@@ -18,9 +18,9 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <permission
-        android:name="io.github.jqssun.displaymirror.permission.TOUCHSCREEN_BRIDGE"
+        android:name="io.github.jeat7.eatonairlink.permission.TOUCHSCREEN_BRIDGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="io.github.jqssun.displaymirror.permission.TOUCHSCREEN_BRIDGE" />
+    <uses-permission android:name="io.github.jeat7.eatonairlink.permission.TOUCHSCREEN_BRIDGE" />
 
     <application
         android:allowBackup="true"
@@ -68,7 +68,7 @@
         <activity
             android:name=".TouchscreenActivity"
             android:exported="true"
-            android:permission="io.github.jqssun.displaymirror.permission.TOUCHSCREEN_BRIDGE"
+            android:permission="io.github.jeat7.eatonairlink.permission.TOUCHSCREEN_BRIDGE"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="io.github.jqssun.displaymirror.action.OPEN_TOUCHSCREEN" />
@@ -98,7 +98,7 @@
             android:name=".MirrorTouchscreenProvider"
             android:authorities="${applicationId}.touchscreen"
             android:exported="true"
-            android:permission="io.github.jqssun.displaymirror.permission.TOUCHSCREEN_BRIDGE" />
+            android:permission="io.github.jeat7.eatonairlink.permission.TOUCHSCREEN_BRIDGE" />
         
         <service
             android:name=".ProjectionService"
