@@ -51,7 +51,7 @@ public final class AirLinkTvRemoteClient {
  }
  private void connectSamsung(){
   String encoded=Base64.encodeToString("Eaton AirLink".getBytes(java.nio.charset.StandardCharsets.UTF_8),Base64.NO_WRAP);
-  Request req=new Request.Builder().url("ws://"+host+":8001/api/v2/channels/samsung.remote.control?name="+encoded).build();
+  Request req=new Request.Builder().url("ws://"+host+":8001/api/v2/channels/samsung.remote.control?name="+android.net.Uri.encode(encoded)).build();
   socket=http.newWebSocket(req,new WebSocketListener(){
    @Override public void onOpen(WebSocket s,Response response){
     notifyStatus("Samsung contacted. Approve the remote on your TV if prompted.",false);

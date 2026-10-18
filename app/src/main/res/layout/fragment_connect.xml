@@ -30,5 +30,9 @@
 <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical"><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/airlink_phone_remote" android:textStyle="bold" android:textAppearance="?attr/textAppearanceTitleMedium"/><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/airlink_remote_desc" android:layout_marginTop="8dp" android:textColor="@color/eaton_muted"/></LinearLayout>
 <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" android:contentDescription="@null" app:tint="@color/eaton_muted"/>
 </LinearLayout></com.google.android.material.card.MaterialCardView>
+<com.google.android.material.button.MaterialButton android:id="@+id/connect_tv_remote_button"
+ android:layout_width="match_parent" android:layout_height="wrap_content"
+ android:minHeight="54dp" android:layout_marginTop="12dp"
+ android:text="@string/airlink_remote"/>
 <com.google.android.material.button.MaterialButton android:id="@+id/connect_help_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:minHeight="52dp" android:text="@string/airlink_connection_help"/>
 </LinearLayout></ScrollView>

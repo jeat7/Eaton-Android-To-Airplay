@@ -29,6 +29,7 @@ public class ConnectFragment extends Fragment {
         Snackbar.make(view, R.string.airlink_remote_waiting, Snackbar.LENGTH_LONG).show();
       }
     });
+    view.findViewById(R.id.connect_tv_remote_button).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.remote_fragment));
     view.findViewById(R.id.connect_help_button).setOnClickListener(
         v -> Navigation.findNavController(v).navigate(R.id.help_fragment));
   }
