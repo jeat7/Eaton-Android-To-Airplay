@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     AppBarConfiguration appBarConfig =
         new AppBarConfiguration.Builder(
-                R.id.overview_fragment, R.id.logs_fragment, R.id.settings_fragment)
+                R.id.overview_fragment, R.id.connect_fragment, R.id.help_fragment, R.id.settings_fragment)
             .build();
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);
     NavigationUI.setupWithNavController(bottomNav, navController);
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
     return NavigationUI.navigateUp(
             navHostFragment.getNavController(),
             new AppBarConfiguration.Builder(
-                    R.id.overview_fragment, R.id.logs_fragment, R.id.settings_fragment)
+                    R.id.overview_fragment, R.id.connect_fragment, R.id.help_fragment, R.id.settings_fragment)
                 .build())
         || super.onSupportNavigateUp();
   }
