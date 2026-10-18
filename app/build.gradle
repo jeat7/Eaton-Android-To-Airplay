@@ -18,8 +18,8 @@ android {
         applicationId "io.github.jeat7.eatonairlink"
         minSdk 26
         targetSdk 36
-        versionCode 36
-        versionName "0.2.0"
+        versionCode 100
+        versionName "1.0.0-beta1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -103,6 +103,7 @@ dependencies {
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
     implementation 'org.bouncycastle:bcpkix-jdk18on:1.83'
     implementation 'org.jmdns:jmdns:3.6.3'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation "androidx.lifecycle:lifecycle-livedata:2.10.0"
     implementation fileTree(dir: 'libs', include: ['*.aar'])
 }

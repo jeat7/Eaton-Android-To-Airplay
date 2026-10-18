@@ -280,4 +280,15 @@
   <string name="airlink_connect_selected">Connect selected TV</string>
   <string name="airlink_reconnect">Reconnect to last TV</string>
   <string name="airlink_reconnect_named">Reconnect to %1$s</string>
+<string name="airlink_tools">Tools</string>
+<string name="airlink_tools_intro">Choose a tool for better casting, smart TV controls and troubleshooting.</string>
+<string name="airlink_remote">TV remote</string>
+<string name="airlink_profiles">Favourite TVs</string>
+<string name="airlink_session">Connected display</string>
+<string name="airlink_picture">Picture and screen fit</string>
+<string name="airlink_showcase">Media showcase</string>
+<string name="airlink_health">Connection health</string>
+<string name="airlink_diagnostics">Connection checker</string>
+<string name="airlink_receivers">More receiver types</string>
+<string name="airlink_quick_tile">AirLink quick connect</string>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:id="@+id/airlink_widget_launch" android:layout_width="match_parent" android:layout_height="match_parent"
+ android:padding="14dp" android:orientation="vertical" android:gravity="center" android:background="@drawable/eaton_setting_row">
+ <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Eaton AirLink"
+ android:textColor="#2ED3B7" android:textStyle="bold" android:textSize="18sp" />
+ <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tap to connect to a TV"
+ android:textColor="#EEF6FB" android:textSize="12sp"/>
+</LinearLayout>

@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     AppBarConfiguration appBarConfig =
         new AppBarConfiguration.Builder(
-                R.id.overview_fragment, R.id.connect_fragment, R.id.help_fragment, R.id.settings_fragment)
+                R.id.overview_fragment, R.id.connect_fragment, R.id.tools_fragment, R.id.help_fragment, R.id.settings_fragment)
             .build();
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);
     NavigationUI.setupWithNavController(bottomNav, navController);

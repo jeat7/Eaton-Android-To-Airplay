@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:id="@+id/overview_fragment" android:icon="@drawable/ic_overview" android:title="@string/overview"/>
 <item android:id="@+id/connect_fragment" android:icon="@drawable/ic_airplay" android:title="@string/airlink_connect_nav"/>
+<item android:id="@+id/tools_fragment" android:icon="@drawable/ic_settings" android:title="@string/airlink_tools"/>
 <item android:id="@+id/help_fragment" android:icon="@drawable/ic_logs" android:title="@string/airlink_help_nav"/>
 <item android:id="@+id/settings_fragment" android:icon="@drawable/ic_settings" android:title="@string/tab_settings"/>
 </menu>

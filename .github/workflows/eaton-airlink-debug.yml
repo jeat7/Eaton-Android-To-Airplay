@@ -3,7 +3,7 @@ name: Eaton AirLink - Debug APK
 on:
   workflow_dispatch:
   push:
-    branches: [feature/eaton-airlink-branding-volume]
+    branches: [feature/eaton-airlink-branding-volume, feature/eaton-airlink-v1-smart-hub]
 
 concurrency:
   group: airlink-debug-${{ github.ref_name }}

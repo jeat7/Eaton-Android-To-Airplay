@@ -14,7 +14,16 @@
     </fragment>
 
     <fragment android:id="@+id/connect_fragment" android:name="io.github.jqssun.displaymirror.ConnectFragment" android:label="@string/airlink_connect_nav"/>
-    <fragment android:id="@+id/help_fragment" android:name="io.github.jqssun.displaymirror.HelpFragment" android:label="@string/airlink_help_nav"/>
+    <fragment android:id="@+id/tools_fragment" android:name="io.github.jqssun.displaymirror.AirLinkToolsFragment" android:label="@string/airlink_tools"/>
+<fragment android:id="@+id/remote_fragment" android:name="io.github.jqssun.displaymirror.AirLinkRemoteFragment" android:label="@string/airlink_remote"/>
+<fragment android:id="@+id/profiles_fragment" android:name="io.github.jqssun.displaymirror.AirLinkProfilesFragment" android:label="@string/airlink_profiles"/>
+<fragment android:id="@+id/session_fragment" android:name="io.github.jqssun.displaymirror.AirLinkSessionFragment" android:label="@string/airlink_session"/>
+<fragment android:id="@+id/picture_fragment" android:name="io.github.jqssun.displaymirror.AirLinkPictureFragment" android:label="@string/airlink_picture"/>
+<fragment android:id="@+id/showcase_fragment" android:name="io.github.jqssun.displaymirror.AirLinkShowcaseFragment" android:label="@string/airlink_showcase"/>
+<fragment android:id="@+id/health_fragment" android:name="io.github.jqssun.displaymirror.AirLinkHealthFragment" android:label="@string/airlink_health"/>
+<fragment android:id="@+id/diagnostics_fragment" android:name="io.github.jqssun.displaymirror.AirLinkDiagnosticsFragment" android:label="@string/airlink_diagnostics"/>
+<fragment android:id="@+id/receivers_fragment" android:name="io.github.jqssun.displaymirror.AirLinkReceiversFragment" android:label="@string/airlink_receivers"/> 
+<fragment android:id="@+id/help_fragment" android:name="io.github.jqssun.displaymirror.HelpFragment" android:label="@string/airlink_help_nav"/>
     <fragment
         android:id="@+id/sunshine_fragment"
         android:name="io.github.jqssun.displaymirror.sunshine.SunshineFragment"

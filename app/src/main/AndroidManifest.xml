@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
@@ -25,6 +27,7 @@
     <application
         android:allowBackup="true"
         android:enableOnBackInvokedCallback="true"
+        android:usesCleartextTraffic="true"
         android:banner="@drawable/banner"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -100,6 +103,16 @@
             android:exported="true"
             android:permission="io.github.jeat7.eatonairlink.permission.TOUCHSCREEN_BRIDGE" />
         
+        <service android:name=".AirLinkQuickTile"
+          android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+          android:exported="true" android:icon="@mipmap/ic_launcher"
+          android:label="@string/airlink_quick_tile">
+          <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter>
+        </service>
+        <receiver android:name=".AirLinkWidget" android:exported="true">
+          <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+          <meta-data android:name="android.appwidget.provider" android:resource="@xml/airlink_widget"/>
+        </receiver>
         <service
             android:name=".ProjectionService"
             android:foregroundServiceType="mediaProjection"
