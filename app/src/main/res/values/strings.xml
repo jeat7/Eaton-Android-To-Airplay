@@ -174,7 +174,7 @@
     <string name="manual_input_client_title">Manual input client</string>
 
     <!-- MainActivity status -->
-    <string name="mirror_app_name">Mirror</string>
+    <string name="mirror_app_name">Eaton AirLink</string>
     <string name="projection_service_running">Screen projection active</string>
 
     <!-- SunshineServer PIN dialog -->
@@ -199,4 +199,6 @@
     <string name="displaylink_apk_url_label">Custom DisplayLink Presenter app download URL</string>
     <string name="about_displaylink_legal_notice">This app uses publicly available drivers to support DisplayLink\u00ae devices. Users should comply with the relevant licensing terms of Synaptics when using DisplayLink\u00ae related features. This app is not affiliated with Synaptics.</string>
 
+    <string name="airplay_follow_phone_volume">Follow phone media volume</string>
+    <string name="airplay_follow_phone_volume_desc">Adjusts streamed AirPlay sound using the phone volume buttons. Does not change the TV speaker volume.</string>
 </resources>

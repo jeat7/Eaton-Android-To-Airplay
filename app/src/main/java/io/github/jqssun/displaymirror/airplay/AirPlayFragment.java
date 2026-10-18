@@ -69,6 +69,14 @@ public class AirPlayFragment extends Fragment {
           Pref.getPreferences().edit().putBoolean(Pref.KEY_AIRPLAY1_MODE, c).apply();
           airplaylib.Airplaylib.setAirPlay1Mode(c);
         });
+    MaterialSwitch phoneVolumeSwitch = view.findViewById(R.id.airplay_follow_phone_volume_switch);
+    phoneVolumeSwitch.setChecked(Pref.getAirPlayFollowPhoneVolume());
+    phoneVolumeSwitch.setOnCheckedChangeListener(
+        (button, checked) ->
+            Pref.getPreferences().edit()
+                .putBoolean(Pref.KEY_AIRPLAY_FOLLOW_PHONE_VOLUME, checked)
+                .apply());
+
     manageDisplayBtn.setOnClickListener(
         v ->
             ((MainActivity) requireActivity())
