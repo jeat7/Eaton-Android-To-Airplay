@@ -26,6 +26,7 @@ public class AirPlayFragment extends Fragment {
   private TextView statusTitle, statusDetail;
   private ImageView statusIcon;
   private Spinner deviceSpinner;
+  private LinearLayout deviceCards;
   private MaterialButton scanBtn, connectBtn, manageDisplayBtn;
   private LinearLayout manualLayout;
   private TextInputEditText manualIp, manualPort;
@@ -52,6 +53,7 @@ public class AirPlayFragment extends Fragment {
     statusIcon = view.findViewById(R.id.airplay_status_icon);
     scanBtn = view.findViewById(R.id.airplay_scan_btn);
     deviceSpinner = view.findViewById(R.id.airplay_device_spinner);
+    deviceCards = view.findViewById(R.id.airplay_device_cards);
     connectBtn = view.findViewById(R.id.airplay_connect_btn);
     manageDisplayBtn = view.findViewById(R.id.manage_display_btn);
 
@@ -122,7 +124,13 @@ public class AirPlayFragment extends Fragment {
           }
           String portStr =
               manualPort.getText() != null ? manualPort.getText().toString().trim() : "";
-          int port = portStr.isEmpty() ? 7000 : Integer.parseInt(portStr);
+          int port;
+          try {
+            port = portStr.isEmpty() ? 7000 : Integer.parseInt(portStr);
+          } catch (NumberFormatException badPort) {
+            Toast.makeText(requireContext(), R.string.airlink_bad_port, Toast.LENGTH_SHORT).show();
+            return;
+          }
           _pendingDevice = new AirPlayService.AirPlayDevice("Manual (" + ip + ")", ip, port);
           _updateStatus(
               R.drawable.ic_sync, R.string.airplay_connecting, R.string.airplay_connecting_detail);
@@ -138,6 +146,12 @@ public class AirPlayFragment extends Fragment {
 
           @Override
           public void onConnected() {
+            if (_pendingDevice != null) {
+              requireContext().getSharedPreferences(Pref.PREF_NAME, android.content.Context.MODE_PRIVATE)
+                  .edit().putString("airlink_last_device_name", _pendingDevice.name)
+                  .putString("airlink_last_device_ip", _pendingDevice.ip)
+                  .putInt("airlink_last_device_port", _pendingDevice.port).apply();
+            }
             _pendingDevice = null;
             _updateStatus(
                 R.drawable.ic_check_circle,
@@ -160,6 +174,7 @@ public class AirPlayFragment extends Fragment {
             if (airplay.getDevices().isEmpty()) {
               connectBtn.setVisibility(View.GONE);
               deviceSpinner.setVisibility(View.GONE);
+              deviceCards.setVisibility(View.GONE);
             }
             _updateManageDisplayButton();
           }
@@ -229,11 +244,32 @@ public class AirPlayFragment extends Fragment {
 
   private void _updateDeviceList() {
     List<AirPlayService.AirPlayDevice> devices = AirPlayService.getInstance().getDevices();
+    deviceCards.removeAllViews();
+    for (AirPlayService.AirPlayDevice device : devices) {
+      com.google.android.material.button.MaterialButton card =
+          new com.google.android.material.button.MaterialButton(requireContext(), null,
+              com.google.android.material.R.attr.materialButtonOutlinedStyle);
+      card.setText(device.name + "\n" + device.ip);
+      card.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+      card.setAllCaps(false);
+      card.setMinimumHeight((int) (64 * getResources().getDisplayMetrics().density));
+      LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+          ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+      params.bottomMargin = (int) (8 * getResources().getDisplayMetrics().density);
+      deviceCards.addView(card, params);
+      card.setOnClickListener(v -> {
+        _pendingDevice = device;
+        _updateStatus(R.drawable.ic_sync, R.string.airplay_connecting,
+            R.string.airplay_connecting_detail);
+        AirPlayService.getInstance().connect(device.ip, device.port);
+      });
+    }
     ArrayAdapter<AirPlayService.AirPlayDevice> adapter =
         new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, devices);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     deviceSpinner.setAdapter(adapter);
-    deviceSpinner.setVisibility(View.VISIBLE);
+    deviceSpinner.setVisibility(View.GONE);
+    deviceCards.setVisibility(View.VISIBLE);
     connectBtn.setVisibility(View.VISIBLE);
     statusIcon.setImageResource(R.drawable.ic_check_circle);
     statusTitle.setText(devices.size() + " device(s) found");

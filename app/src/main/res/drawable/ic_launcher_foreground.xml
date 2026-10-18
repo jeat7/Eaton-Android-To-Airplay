@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp" android:height="108dp"
-    android:viewportWidth="108" android:viewportHeight="108">
-    <group android:translateX="30" android:translateY="30">
-        <!-- Eaton-family pulse icon, adapted for AirLink -->
-        <path android:pathData="M6,24 H13 L17,17 L22,33 L27,13 L31,24 H42"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="#2ED3B7" android:strokeWidth="3.6"
-            android:strokeLineCap="round" android:strokeLineJoin="round" />
-        <path android:pathData="M6,8 H29 M6,40 H42"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="#7AF0DA" android:strokeAlpha="0.65"
-            android:strokeWidth="3" android:strokeLineCap="round" />
-    </group>
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Eaton AirLink, native adaptive foreground: phone, TV, wireless waves, Eaton pulse. -->
+    <path android:pathData="M12,35 Q12,30 17,30 L34,30 Q39,30 39,35 L39,75 Q39,80 34,80 L17,80 Q12,80 12,75 Z"
+        android:fillColor="#12243A" android:strokeColor="#72A8FF" android:strokeWidth="2.8" />
+    <path android:pathData="M21,34 L29,34" android:strokeColor="#2ED3B7"
+        android:strokeWidth="2.4" android:strokeLineCap="round"/>
+    <path android:pathData="M53,39 Q53,35 58,35 L96,35 Q100,35 100,40 L100,73 Q100,77 96,77 L58,77 Q53,77 53,72 Z"
+        android:fillColor="#12243A" android:strokeColor="#72A8FF" android:strokeWidth="2.8"/>
+    <path android:pathData="M74,77 L74,82 M65,83 L84,83" android:strokeColor="#72A8FF"
+        android:strokeWidth="2.5" android:strokeLineCap="round"/>
+    <path android:pathData="M40,54 L45,54 L48,59 L53,43 L59,64 L63,54 L71,54"
+        android:fillColor="@android:color/transparent" android:strokeColor="#2ED3B7"
+        android:strokeWidth="3.4" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+    <path android:pathData="M39,38 Q49,38 51,47 M42,29 Q57,29 61,42 M46,20 Q67,20 74,38"
+        android:fillColor="@android:color/transparent" android:strokeColor="#7AF0DA"
+        android:strokeWidth="3.2" android:strokeLineCap="round" />
 </vector>

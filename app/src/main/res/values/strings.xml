@@ -149,7 +149,7 @@
     <string name="airplay1_mode">Support for legacy 3rd party receivers</string>
     <string name="airplay1_mode_desc">Enable only when used with legacy receivers including Anker Nebula Cast (AirPin) which do not have modern AirPlay support.</string>
     <string name="about_airplay_notice">This app is not affiliated with Apple.</string>
-    <string name="airplay_discover">Scan for AirPlay receivers</string>
+    <string name="airplay_discover">Scan for TVs</string>
     <string name="airplay_no_devices">AirPlay receiver not connected</string>
     <string name="airplay_no_devices_detail">Search for receivers on your network</string>
     <string name="airplay_connecting">Connecting to AirPlay</string>
@@ -274,4 +274,8 @@
     <string name="airlink_ready_title">You are ready</string>
     <string name="airlink_ready_body">Choose a connection, scan for your TV, then approve screen capture. Reopen this guide from Help or Settings.</string>
     <string name="airlink_open_connect">Open Connect</string>
+  <string name="airlink_airplay_hint">Both devices should be on the same Wi-Fi. Tap Scan for TVs, then tap the device you want.</string>
+  <string name="airlink_bad_port">Enter a valid numeric port.</string>
+  <string name="airlink_scan_tvs">Scan for TVs</string>
+  <string name="airlink_connect_selected">Connect selected TV</string>
 </resources>
