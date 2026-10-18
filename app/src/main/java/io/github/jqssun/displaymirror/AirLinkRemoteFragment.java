@@ -22,7 +22,7 @@ public class AirLinkRemoteFragment extends Fragment {
   brand=new Spinner(requireContext());
   String[] vendors={"Roku / Roku TV","LG webOS (experimental)","Samsung Tizen (experimental)",
     "Google / Android TV (use official remote)","Amazon Fire TV (use official remote)",
-    "Sky Glass (TV remote needed)","Other TV (compatibility guide)"};
+    "Sky Glass (TV remote needed)","Other TV (compatibility guide)","Custom IR codes (NEC-compatible)"};
   ArrayAdapter<String> adapter=new ArrayAdapter<>(requireContext(),android.R.layout.simple_spinner_dropdown_item,vendors);
   brand.setAdapter(adapter);setup.addView(brand);
   setup.addView(AirLinkUi.text(requireContext(),"TV local IPv4 address",15,true,false));
@@ -30,8 +30,15 @@ public class AirLinkRemoteFragment extends Fragment {
   ip.setHint("192.168.1.50");setup.addView(ip);
   SharedPreferences pref=requireContext().getSharedPreferences("airlink_tv_remote",0);
   ip.setText(pref.getString("ip",""));brand.setSelection(pref.getInt("vendor",0));
+  AirLinkUi.button(setup,"Configure infrared codes",b->configureInfrared());
   AirLinkUi.button(setup,"Connect / Pair",b->{
    int selected=brand.getSelectedItemPosition();
+   if(selected==7){
+    boolean ok=AirLinkIr.available(requireContext());
+    status.setText(ok?"IR is available. Configure your TV's NEC codes.":"No IR transmitter detected on this phone.");
+    keys.setVisibility(ok?View.VISIBLE:View.GONE);
+    return;
+   }
    if(selected>2){status.setText(explain(selected));keys.setVisibility(View.GONE);return;}
    String host=ip.getText().toString().trim();
    pref.edit().putString("ip",host).putInt("vendor",selected).apply();
@@ -57,9 +64,27 @@ public class AirLinkRemoteFragment extends Fragment {
    if(actions[n].isEmpty()){row.addView(new View(requireContext()),lp);continue;}
    final String action=actions[n];
    com.google.android.material.button.MaterialButton b=new com.google.android.material.button.MaterialButton(requireContext());
-   b.setText(labels[n]);b.setAllCaps(false);b.setTextSize(12);b.setOnClickListener(v->remote.press(action));
+   b.setText(labels[n]);b.setAllCaps(false);b.setTextSize(12);b.setOnClickListener(v->{
+    if(brand.getSelectedItemPosition()==7){
+     String error=AirLinkIr.press(requireContext(),action);
+     if(error!=null)status.setText(error);
+    } else remote.press(action);
+   });
    row.addView(b,lp);
   }
+ }
+ private void configureInfrared(){
+  EditText editor=new EditText(requireContext());
+  editor.setInputType(android.text.InputType.TYPE_CLASS_TEXT|
+      android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+  editor.setMinLines(6);editor.setText(AirLinkIr.codes(requireContext()));
+  editor.setHint("frequency=38000\\npower=1234ABCD\\nvolup=...");
+  new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+   .setTitle("Custom IR codes (NEC)")
+   .setMessage("Only for phones with IR hardware and NEC-compatible TVs. Provide known 32-bit hex codes for keys such as power, volup, voldown, home, back, up, down, left, right, ok, mute. No default codes are included.")
+   .setView(editor)
+   .setPositiveButton("Save",(d,w)->AirLinkIr.save(requireContext(),editor.getText().toString()))
+   .setNegativeButton("Cancel",null).show();
  }
  private String explain(int selected){
   switch(selected){
