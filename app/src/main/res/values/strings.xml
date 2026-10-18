@@ -1,6 +1,6 @@
 <resources>
     <!-- Tabs -->
-    <string name="overview">Overview</string>
+    <string name="overview">Home</string>
     <string name="tab_sunshine">Sunshine (Moonlight)</string>
     <string name="tab_logs">Logs</string>
     <string name="export">Export</string>
@@ -201,4 +201,36 @@
 
     <string name="airplay_follow_phone_volume">Follow phone media volume</string>
     <string name="airplay_follow_phone_volume_desc">Adjusts streamed AirPlay sound using the phone volume buttons. Does not change the TV speaker volume.</string>
+    <string name="airlink_eyebrow">EATON | CONNECTED EXPERIENCES</string>
+    <string name="airlink_home_intro">Mirror your Android screen to TVs and displays with simple setup.</string>
+    <string name="airlink_connect_tv">Connect to a TV</string>
+    <string name="airlink_setup_guide">Setup guide</string>
+    <string name="airlink_connect_nav">Connect</string>
+    <string name="airlink_help_nav">Help</string>
+    <string name="airlink_connect_options">Ways to connect</string>
+    <string name="airlink_mirror_tv">Mirror to TV</string>
+    <string name="airlink_mirror_tv_desc">Show your phone on an AirPlay-compatible TV or receiver.</string>
+    <string name="airlink_moonlight">Stream to Moonlight</string>
+    <string name="airlink_moonlight_desc">Stream a virtual screen to a Moonlight client.</string>
+    <string name="airlink_usb_display">USB display</string>
+    <string name="airlink_usb_display_desc">Connect supported wired and DisplayLink adapters.</string>
+    <string name="airlink_phone_remote">Phone remote</string>
+    <string name="airlink_remote_desc">Control an active mirrored display from your phone.</string>
+    <string name="airlink_remote_waiting">Connect a display first to enable phone controls.</string>
+    <string name="airlink_remote_ready">Tap to control the connected display.</string>
+    <string name="airlink_setup_status">Setup status</string>
+    <string name="airlink_core_ready">Ready to mirror</string>
+    <string name="airlink_setup_optional_ready">Optional floating controls are enabled. Advanced access is not needed for AirPlay.</string>
+    <string name="airlink_setup_optional_not_ready">Basic mirroring works without advanced access. Floating controls are optional.</string>
+    <string name="airlink_overlay_ready">Enabled for floating controls.</string>
+    <string name="airlink_overlay_optional">Optional controls shown over other apps.</string>
+    <string name="airlink_shizuku_optional">Optional: needed only for advanced display and remote input.</string>
+    <string name="airlink_floating_controls">Floating controls</string>
+    <string name="airlink_advanced_optional">Advanced features (Shizuku)</string>
+    <string name="airlink_enable_overlay">Enable floating controls</string>
+    <string name="airlink_allow_advanced">Allow advanced controls</string>
+    <string name="airlink_last_device">Last connected: %1$s. Open Mirror to TV to reconnect.</string>
+    <string name="airlink_no_last_device">Your most recent TV will appear after the first connection.</string>
+    <string name="status_ready">Ready to connect</string>
+    <string name="status_not_connected">Not connected</string>
 </resources>

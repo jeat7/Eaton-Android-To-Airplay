@@ -13,6 +13,8 @@
         <action android:id="@+id/action_overview_to_displaylink" app:destination="@id/displaylink_fragment" />
     </fragment>
 
+    <fragment android:id="@+id/connect_fragment" android:name="io.github.jqssun.displaymirror.ConnectFragment" android:label="@string/airlink_connect_nav"/>
+    <fragment android:id="@+id/help_fragment" android:name="io.github.jqssun.displaymirror.HelpFragment" android:label="@string/airlink_help_nav"/>
     <fragment
         android:id="@+id/sunshine_fragment"
         android:name="io.github.jqssun.displaymirror.sunshine.SunshineFragment"
