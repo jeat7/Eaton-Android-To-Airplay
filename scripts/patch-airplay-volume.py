@@ -12,7 +12,7 @@ if len(sys.argv) != 2:
     raise SystemExit("Usage: patch-airplay-volume.py <doubletake mirror.go>")
 path = Path(sys.argv[1])
 source = path.read_text()
-start_marker = "\t// Only set the receiver's volume when this session actually carries audio."
+start_marker = "\t// Set volume to 0 dB (full scale). Positive dB values are invalid here and"
 end_marker = "\n\tif timingProtocol == timingProtocolPTP {"
 if source.count(start_marker) != 1:
     raise SystemExit("AirPlay setup volume marker changed: refusing an unsafe patch")
