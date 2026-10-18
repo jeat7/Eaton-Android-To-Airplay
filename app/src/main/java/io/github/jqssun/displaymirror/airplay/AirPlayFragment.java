@@ -254,7 +254,19 @@ public class AirPlayFragment extends Fragment {
     }
     State.uiState.observe(getViewLifecycleOwner(), state -> _updateManageDisplayButton());
     _updateManageDisplayButton();
-
+    // A saved favourite opens the usual interactive connection UI, including any PIN prompt.
+    Bundle requested = getArguments();
+    if (requested != null && !airplay.isConnected()) {
+      String ip=requested.getString("airlink_connect_host", "");
+      int port=requested.getInt("airlink_connect_port",0);
+      String name=requested.getString("airlink_connect_name",ip);
+      if (!ip.isEmpty() && port>0) {
+        requested.clear();
+        _pendingDevice=new AirPlayService.AirPlayDevice(name,ip,port);
+        _updateStatus(R.drawable.ic_sync,R.string.airplay_connecting,R.string.airplay_connecting_detail);
+        airplay.connect(ip,port);
+      }
+    }
     return view;
   }
 
