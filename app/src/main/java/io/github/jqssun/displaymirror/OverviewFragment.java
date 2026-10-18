@@ -48,6 +48,7 @@ public class OverviewFragment extends Fragment {
     _initShizuku(view);
     view.findViewById(R.id.connect_tv_btn).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.airplay_fragment));
     view.findViewById(R.id.setup_guide_btn).setOnClickListener(v -> Onboarding.show(requireActivity(), true));
+    view.findViewById(R.id.last_device_label).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.airplay_fragment));
     _initOverlay(view);
 
     view.findViewById(R.id.sunshine_card)

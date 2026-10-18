@@ -1,20 +1,20 @@
-# Eaton AirLink v0.1.0
+# Eaton AirLink v0.2.0
 
-Eaton AirLink builds on the GPL-3.0-licensed [Mirror](https://github.com/jqssun/android-display-mirror) project.
+## Delivered
+- Eaton family design language, adaptive vector icon, matching navy and teal Material theme
+- Card-based Home, Connect, Help and Settings entry points; original advanced screens retained
+- Skippable first-run setup wizard with guidance for screen capture, optional audio and overlay permissions
+- AirPlay receiver choices as labelled cards, paired-receiver memory and manual reconnect
+- Expanded in-app help and diagnostics links
+- Build patch preventing AirPlay from unilaterally setting a receiver to full (0 dB) at connection
+- Optional outbound PCM attenuation by Android phone media volume (off by default on clean installs)
+- Original upstream Mirror features and GPLv3 licence retained, no Stremio-specific button
 
-## Preserved
-AirPlay 1/2, Moonlight/Sunshine streaming and control, DisplayLink USB, Shizuku optional tools, virtual display options, logs and settings. **No Stremio launcher** is included.
+## Validation
+GitHub Actions must complete before distributing the APK. Confirm Sky Glass AirPlay, audio, connection volume retention, and remote features on an actual phone/TV. The original Extend companion may need separate app-ID integration testing. A passing compilation does not prove every native feature works with your exact hardware.
 
-The Android application ID changes to `io.github.jeat7.eatonairlink` to allow side-by-side install. Its Java namespace stays `io.github.jqssun.displaymirror` to preserve native bindings. Verify integrations relying on the original package ID, especially the separate Extend companion app.
+## Safety and source boundaries
+The separate Eaton Vital fitness repository was used **read-only** as a theme reference. No files were modified in that repository. The `main` branch of Eaton-Android-To-Airplay remains unchanged until the draft PR is explicitly merged.
 
-## Eaton-family appearance
-Eaton Vital was inspected in read-only mode only; no files in the fitness repository were edited. AirLink uses its navy background #07111F, panel #0D1A2B, elevated panel #12243A, border #213853, foreground #EEF6FB, muted #91A8BC, teal #2ED3B7, and light teal #7AF0DA. The adaptive launcher icon uses Eaton's pulse motif.
-
-## AirPlay audio level
-The new **Follow phone media volume** option is enabled by default. It attenuates 16-bit audio frames sent over AirPlay based on the phone's media volume. It does NOT change Sky Glass's actual TV speaker volume. If Android has already scaled playback capture, the sound may be reduced twice; disable the option if that happens. TV volume protocol control still needs receiver-specific investigation and testing.
-
-## Build
-The new GitHub Actions **Eaton AirLink - Debug APK** workflow assembles the upstream native engine, then generates a debug-signed APK as a build artifact. Successful CI and on-device testing are required before considering this production-ready. Release distribution requires a unique signing key.
-
-## GPL notices
-Continue preserving the original GPLv3 copyright, licence and corresponding source when sharing builds. Eaton AirLink is unofficial and not affiliated with Apple, Sky or the upstream developers.
+## Licence
+Based on [Mirror](https://github.com/jqssun/android-display-mirror) under GNU GPLv3. Provide source with distributed modified builds, preserve upstream attribution, and identify modified code. No official association with Sky or Apple.

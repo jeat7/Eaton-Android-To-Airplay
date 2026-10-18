@@ -1,109 +1,49 @@
-# Screen Mirroring Manager for Android
+# Eaton AirLink
 
-[![Stars](https://img.shields.io/github/stars/jqssun/android-display-mirror?label=stars&logo=GitHub)](https://github.com/jqssun/android-display-mirror/stargazers)
-[![GitHub](https://img.shields.io/github/downloads/jqssun/android-display-mirror/total?label=GitHub&logo=GitHub)](https://github.com/jqssun/android-display-mirror/releases)
-[![license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/jqssun/android-display-mirror/blob/main/LICENSE)
-[![build](https://img.shields.io/github/actions/workflow/status/jqssun/android-display-mirror/apk.yml?label=build)](https://github.com/jqssun/android-display-mirror/actions/workflows/apk.yml)
-[![release](https://img.shields.io/github/v/release/jqssun/android-display-mirror)](https://github.com/jqssun/android-display-mirror/releases)
+**Simple Android screen mirroring and external displays.**
 
-**Mirror** is an all-in-one application that forwards your screen content to external displays and expands Android's built-in screen mirroring capabilities. It creates virtual displays and supports screen sharing to:
-- AirPlay receivers (Apple tvOS and macOS built-in receivers, or third-party receivers using [AirPlay Server for Android](https://github.com/jqssun/android-airplay-server) or [UxPlay](https://github.com/FDH2/UxPlay))
-- [DisplayLink](https://www.synaptics.com/products/displaylink-graphics) adapters connected to the device via USB host mode
-- [Moonlight](https://github.com/moonlight-stream) ([Nvidia GameStream](https://www.nvidia.com/en-us/support/gamestream/)) clients with remote control support via the built-in [Sunshine](https://github.com/lizardbyte/sunshine) server
-
-It can be used in conjunction with [**Extend**](https://github.com/jqssun/android-display-extend) to turn any connected display or sink device into a secondary display where you can cast and control any application. You can also use this with [**AirPlay Server for Android**](https://github.com/jqssun/android-airplay-server) or [**Moonlight for Android**](https://github.com/moonlight-stream/moonlight-android) to create a dummy display that stays in Picture-in-Picture.
-
-[<img height="48" alt="Get it on Google Play" src="https://jqssun.github.io/images/badges/google-play-store.svg">](https://play.google.com/store/apps/details?id=io.github.jqssun.displaymirror)
-[<img height="48" alt="Get it on F-Droid" src="https://jqssun.github.io/images/badges/fdroid.svg">](https://f-droid.org/packages/io.github.jqssun.displaymirror)
-[<img height="48" alt="Get it on GitHub" src="https://jqssun.github.io/images/badges/github.svg">](https://github.com/jqssun/android-display-mirror/releases/latest)
-
-<video loop src='https://github.com/user-attachments/assets/99fef870-894a-4cc0-9cd3-d1ebff6cfbb1' alt="demo" width="1200" style="display: block; margin: auto;"></video>
-
-## Usage
-
-Mirror supports creating virtual displays and streaming to them without Shizuku. Remote input requires Shizuku: enable it in any supported mode (wireless debugging, USB debugging, or root) and grant access to this application. See [Shizuku documentation](https://shizuku.rikka.app/guide/setup/) for details. 
-
-### Using with Extend
-Mirror gets pixels onto a display. What application runs on it, where it renders, and how input is routed are handled by [Extend](https://github.com/jqssun/android-display-extend). The two applications connect through Android's display system via `DisplayManager` API.
-
-## Compatibility
-
-- Any device on Android 8.0+ (no privileged access required)
-- (Optional) Receiver on the same subnet for AirPlay and Moonlight sinks
-- (Optional) USB 2 or higher for DisplayLink sinks
-- (Optional) [Extend](https://github.com/jqssun/android-display-extend) for managing the secondary display
-- (Optional) [Shizuku](https://github.com/RikkaApps/Shizuku) for hidden API access
+Eaton AirLink is a custom Android mirroring application in the Eaton family. It uses the same **navy / teal** design language as Eaton Vital, but remains a completely separate app and codebase.
 
 ## Features
 
-- Outbound AirPlay 2 (modern) and AirPlay 1 (legacy) screen mirroring to Apple devices or third-party AirPlay receivers
-- Outbound Moonlight streaming and remote control, with Sunshine server built in
-- DisplayLink USB output via USB host mode (including USB 2)
-- Each display sink is registered as a virtual display via `DisplayManager` API allowing other applications to launch activities on it
-- Touchscreen relay for remote pointer and keyboard input directed at the mirrored display
+- **Mirror to TV (AirPlay):** find and connect to compatible TVs and AirPlay receivers, with quick reconnect to your last successfully paired receiver
+- **Stream to Moonlight:** use the integrated Sunshine host with compatible Moonlight clients
+- **USB display:** supported DisplayLink devices
+- **Phone remote:** touchscreen control of compatible active virtual displays
+- **Guided setup:** optional first-run onboarding, permission explanations and troubleshooting guidance
+- **Advanced tools:** complete original Mirror display settings, Shizuku, companion Extend integration (subject to app-ID compatibility), logs and diagnostics
 
-| Feature | Shizuku | Minimum API |
-|---|:---:|:---:|
-| AirPlay mirroring | N | 26 (`MediaProjection.createVirtualDisplay`) <br> 34 (`MediaProjectionConfig.createConfigForDefaultDisplay`) |
-| DisplayLink USB output | N | 26 (`android.hardware.usb.host`) |
-| Moonlight video streaming | N | 26 (`MediaCodec` H.264) <br> 28 (BT.709/BT.2020 color metadata) <br> 30 (`KEY_LOW_LATENCY`) |
-| Moonlight H.265/HEVC encoding | N | 29 (`MediaCodecInfo.isHardwareAccelerated`) |
-| Audio capture (playback submix) | N | 29 (`AudioPlaybackCaptureConfiguration`) |
-| Audio capture (remote submix) | O | 31 (`REMOTE_SUBMIX`) |
-| Cursor overlay | O | 26 (`TYPE_APPLICATION_OVERLAY`) |
-| Remote device input | R | 26 (`IInputManager.injectInputEvent`) |
-| Touchscreen relay with live preview | R | 31 (`setFocusedRootTask`) <br> 34 (`focusTopTask`) |
-| Auto-match aspect ratio | R | 26 (`IWindowManager.setForcedDisplaySize`) |
-| Trusted virtual display | R | 33 (`VIRTUAL_DISPLAY_FLAG_TRUSTED`, `OWN_DISPLAY_GROUP`, `ALWAYS_UNLOCKED`, `TOUCH_FEEDBACK_DISABLED`) <br> 34 (`DEVICE_DISPLAY_GROUP`) |
-| Untrusted virtual display | F | 26 (`MediaProjection.createVirtualDisplay`) |
-| Application mirroring | N | 26 (`ActivityOptions.setLaunchDisplayId`) <br> 29 (`ActivityManager.isActivityStartAllowedOnDisplay`) |
-| Prevent auto-lock | R | 26 (`WRITE_SECURE_SETTINGS`) |
-| Disable USB audio output | R | 26 (`IAudioService.setWiredDeviceConnectionState`) <br> 33 (`IAudioService.getDevicesForAttributes`) |
-| Display hotplug monitor | I | 26 (`DisplayManager.DisplayListener`) |
+No app-specific Stremio shortcut is included: mirror any application permitted by Android screen-capture rules.
 
-| Legend | Description |
-|---|---|
-| R | Required |
-| O | Optional |
-| F | Fallback |
-| I | Inherited |
-| N | Unused |
+## Getting started
 
-## Implementation
+1. Download a completed **Eaton AirLink - Debug APK** workflow artifact from [Actions](https://github.com/jeat7/Eaton-Android-To-Airplay/actions/workflows/eaton-airlink-debug.yml).
+2. Install the APK on Android 8 or newer. The application ID is `io.github.jeat7.eatonairlink` and can coexist with the upstream Mirror app.
+3. Follow the first-run setup guide or skip it. Shizuku is not required for basic AirPlay mirroring.
+4. For a TV, connect both devices to the same network, select **Connect → Mirror to TV**, scan for receivers and approve the Android screen-capture prompt.
 
-Native streaming servers are bridged to Android via JNI. The Moonlight path compiles [Sunshine](https://github.com/LizardByte/Sunshine) for Android and exposes a [`MediaProjection`](https://developer.android.com/reference/android/media/projection/MediaProjection) backed video source. Sunshine handles RTP packetization itself; [moonlight-common-c](https://github.com/moonlight-stream/moonlight-common-c) supplies the Limelight protocol headers, RTSP parser, and ENet UDP control transport. The AirPlay path is built on [doubletake](https://github.com/omarroth/doubletake), ported to Android via [Go mobile](https://github.com/golang/mobile) and patched for Apple devices and legacy AirPlay receivers. The DisplayLink path uses Android USB host mode with a user-imported vendor driver.
+### Audio / Sky Glass volume
 
-```mermaid
-flowchart LR
-    Android["Mirror"]
-    Sunshine["Sunshine (C/JNI)<br/><small>Moonlight (RTSP + RTP)</small>"]
-    Doubletake["doubletake (Go/JNI)<br/><small>RAOP + FairPlay + H.264</small>"]
-    DL["DisplayLink (USB)<br/><small>USB host mode</small>"]
-    Moonlight["Moonlight clients"]
-    AppleSink["Apple devices or third-party AirPlay receivers"]
-    DLSink["USB Display"]
-    Android -- "VirtualDisplay" --> Sunshine --> Moonlight
-    Android -- "VirtualDisplay" --> Doubletake --> AppleSink
-    Android -- "VirtualDisplay" --> DL --> DLSink
-```
+The included AirPlay library previously sent `SET_PARAMETER volume: 0`, which can set some TVs to maximum volume. Eaton AirLink's build removes this unsolicited request on the disposable native-source build copy; the TV should retain its own volume level, although actual Sky Glass testing is needed.
 
-CMake drives the native C/C++ build under [`./app/src/main/cpp`](app/src/main/cpp). Submodules must be initialized before building. AirPlay is powered by [doubletake](https://github.com/omarroth/doubletake) with custom bindings under [`./doubletake`](doubletake/doubletake). This library needs to be built with [`./build.sh`](build.sh) first. Make sure `go` is available in `$PATH` before building.
+The optional **Follow phone media volume** option only changes the audio samples that are transmitted and does not control the TV's speaker volume. Some Android apps prohibit audio or video capture.
+
+## Development
+
+This is a native Android/Gradle project including Go and C++ dependencies, not a standard Capacitor build. The original AirPlay engine is retained.
 
 ```bash
 git submodule update --init --recursive
-./build.sh && ./gradlew assembleDebug
+./build.sh
+./gradlew assembleDebug
 ```
 
-Check out the [CI](https://github.com/jqssun/android-display-mirror/blob/main/.github/workflows/apk.yml) for reproducible build instructions.
+The GitHub Actions debug workflow uses Java 21, Go and Android SDK/NDK and provides an APK artifact after a successful run.
 
-## Credits
+Review [the draft pull request](https://github.com/jeat7/Eaton-Android-To-Airplay/pull/1) before merging v0.2 changes into `main`.
 
-- [LizardByte](https://github.com/LizardByte/Sunshine) for Sunshine server
-- [Moonlight Game Streaming Project](https://github.com/moonlight-stream/moonlight-common-c) for Moonlight headers
-- [Omar Roth](https://github.com/omarroth/doubletake) for open-source AirPlay sender `doubletake`
-- [Tao Wen](https://github.com/taowen) for the open-source Android bindings of DisplayLink vendor driver
-- [Xiph.Org Foundation](https://github.com/xiph/opus) for the Opus codec
+## Upstream and licence
 
----
+Eaton AirLink is based on [jqssun/android-display-mirror](https://github.com/jqssun/android-display-mirror), distributed under **GNU GPL version 3**. Copyright notices, the LICENSE file, and source-sharing obligations remain in force. The product is unaffiliated with Sky or Apple.
 
-Disclaimer: This project is not affiliated with Apple Inc or Synaptics Inc.
+The Eaton Vital repository was inspected solely for palette consistency and has not been modified by this project.

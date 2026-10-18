@@ -54,6 +54,22 @@ public class AirPlayFragment extends Fragment {
     scanBtn = view.findViewById(R.id.airplay_scan_btn);
     deviceSpinner = view.findViewById(R.id.airplay_device_spinner);
     deviceCards = view.findViewById(R.id.airplay_device_cards);
+    com.google.android.material.button.MaterialButton reconnect =
+        view.findViewById(R.id.airlink_reconnect_button);
+    android.content.SharedPreferences recent = requireContext().getSharedPreferences(
+        Pref.PREF_NAME, android.content.Context.MODE_PRIVATE);
+    String recentName = recent.getString("airlink_last_device_name", "");
+    String recentIp = recent.getString("airlink_last_device_ip", "");
+    int recentPort = recent.getInt("airlink_last_device_port", 0);
+    if (!recentName.isEmpty() && !recentIp.isEmpty() && recentPort > 0) {
+      reconnect.setVisibility(View.VISIBLE);
+      reconnect.setText(getString(R.string.airlink_reconnect_named, recentName));
+      reconnect.setOnClickListener(v -> {
+        _pendingDevice = new AirPlayService.AirPlayDevice(recentName, recentIp, recentPort);
+        _updateStatus(R.drawable.ic_sync, R.string.airplay_connecting, R.string.airplay_connecting_detail);
+        AirPlayService.getInstance().connect(recentIp, recentPort);
+      });
+    }
     connectBtn = view.findViewById(R.id.airplay_connect_btn);
     manageDisplayBtn = view.findViewById(R.id.manage_display_btn);
 

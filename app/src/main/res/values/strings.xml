@@ -278,4 +278,6 @@
   <string name="airlink_bad_port">Enter a valid numeric port.</string>
   <string name="airlink_scan_tvs">Scan for TVs</string>
   <string name="airlink_connect_selected">Connect selected TV</string>
+  <string name="airlink_reconnect">Reconnect to last TV</string>
+  <string name="airlink_reconnect_named">Reconnect to %1$s</string>
 </resources>

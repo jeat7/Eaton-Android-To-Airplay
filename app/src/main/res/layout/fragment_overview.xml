@@ -31,5 +31,5 @@
 <TextView android:id="@+id/shizuku_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/eaton_muted"/>
 <com.google.android.material.button.MaterialButton android:id="@+id/shizuku_permission_btn" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:minHeight="50dp" android:text="@string/airlink_allow_advanced"/>
 </LinearLayout></com.google.android.material.card.MaterialCardView>
-<TextView android:id="@+id/last_device_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/airlink_no_last_device" android:textColor="@color/eaton_muted" android:layout_marginTop="16dp"/>
+<TextView android:id="@+id/last_device_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/airlink_no_last_device" android:textColor="@color/eaton_teal_light" android:layout_marginTop="16dp" android:padding="10dp" android:clickable="true" android:focusable="true"/>
 </LinearLayout></ScrollView>
