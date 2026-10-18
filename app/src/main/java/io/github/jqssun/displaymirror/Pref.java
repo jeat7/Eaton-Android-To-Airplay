@@ -144,7 +144,7 @@ public class Pref {
   }
 
   public static boolean getAirPlayFollowPhoneVolume() {
-    return getBoolean(KEY_AIRPLAY_FOLLOW_PHONE_VOLUME, true);
+    return getBoolean(KEY_AIRPLAY_FOLLOW_PHONE_VOLUME, false);
   }
 
   public static int getAirPlayWidth() {

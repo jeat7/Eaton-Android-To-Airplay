@@ -31,6 +31,10 @@ sed -i 's|deriveStreamMasterKey(c.fpAesKey, sharedSecret(c.PairKeys), c.encrypte
 sed -i 's|if c.encrypted \&\& len(sharedSecret(c.PairKeys)) > 0 {|if len(sharedSecret(c.PairKeys)) > 0 {|' internal/airplay/fairplay.go
 sed -i 's|return fmt.Errorf("SETUP response omitted eventPort")|if !modernControlSetup { dbg("[EVENT] receiver omitted eventPort, continuing without event channel"); return nil }\n\t\treturn fmt.Errorf("SETUP response omitted eventPort")|' internal/airplay/mirror.go
 
-# might rewrite entire thing
+# Eaton AirLink: do not send the AirPlay 0 dB (full volume) request at connection.
+# Patch only the disposable build copy; never modify the upstream submodule.
+python3 "${GITHUB_WORKSPACE:-$OLDPWD}/scripts/patch-airplay-volume.py" internal/airplay/mirror.go
+
+# Preserve the remainder of Mirror's original native streaming engine.
 go get golang.org/x/mobile/bind 2>/dev/null || true;
 gomobile bind -v -trimpath -ldflags="-buildid= -extldflags=-Wl,-z,max-page-size=16384" -target android -androidapi 26 -o $OUT_DIR/airplaylib.aar ./airplaylib/ # -overlay $(realpath ../overlay.json)
