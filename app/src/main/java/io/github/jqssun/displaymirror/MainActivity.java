@@ -361,7 +361,21 @@ public class MainActivity extends AppCompatActivity {
         crossAppLandingScreen = null;
       }
     } else if (ACTION_OPEN_SCREEN.equals(action)) {
-      _openMirrorScreen(intent.getStringExtra(EXTRA_SCREEN));
+      if (intent.getBooleanExtra("airlink_quick_connect",false)
+          && SCREEN_AIRPLAY.equals(intent.getStringExtra(EXTRA_SCREEN))) {
+        android.content.SharedPreferences last=getSharedPreferences(Pref.PREF_NAME,MODE_PRIVATE);
+        String ip=last.getString("airlink_last_device_ip","");
+        String name=last.getString("airlink_last_device_name",ip);
+        int port=last.getInt("airlink_last_device_port",7000);
+        if(!ip.isEmpty()&&port>0&&navController!=null){
+          _navigateToOverview();
+          Bundle args=new Bundle();
+          args.putString("airlink_connect_host",ip);
+          args.putString("airlink_connect_name",name);
+          args.putInt("airlink_connect_port",port);
+          navController.navigate(R.id.airplay_fragment,args);
+        }else _openMirrorScreen(SCREEN_AIRPLAY);
+      }else _openMirrorScreen(intent.getStringExtra(EXTRA_SCREEN));
       if (SOURCE_EXTEND_OVERVIEW.equals(sourceScreen)) {
         crossAppLandingScreen = _normalizeMirrorScreen(intent.getStringExtra(EXTRA_SCREEN));
       } else {
