@@ -35,6 +35,8 @@ public class SettingsFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     preferences = requireContext().getSharedPreferences(Pref.PREF_NAME, Context.MODE_PRIVATE);
     _initSettings(view);
+    view.findViewById(R.id.airlink_replay_setup).setOnClickListener(v -> Onboarding.show(requireActivity(), true));
+    view.findViewById(R.id.airlink_open_logs).setOnClickListener(v -> androidx.navigation.Navigation.findNavController(v).navigate(R.id.logs_fragment));
   }
 
   private void _initSettings(View view) {

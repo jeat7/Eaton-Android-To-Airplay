@@ -232,6 +232,9 @@ public class MainActivity extends AppCompatActivity {
     navController.addOnDestinationChangedListener(
         (controller, destination, arguments) -> _updateCrossAppBackState());
     _handleLaunchIntent(getIntent());
+    if (savedInstanceState == null) {
+      getWindow().getDecorView().post(() -> Onboarding.show(this, false));
+    }
 
     MirrorDisplaylinkMonitor.init(this);
     CaptureAudio.requestPermission();
@@ -290,6 +293,10 @@ public class MainActivity extends AppCompatActivity {
     if (State.getCurrentActivity() == this) {
       State.setCurrentActivity(null);
     }
+  }
+
+  public void openConnectTab() {
+    if (bottomNav != null) bottomNav.setSelectedItemId(R.id.connect_fragment);
   }
 
   public void startSunshine() {

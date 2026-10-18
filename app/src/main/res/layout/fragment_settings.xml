@@ -10,6 +10,13 @@
         android:orientation="vertical"
         android:paddingTop="8dp">
 
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="16dp" android:layout_marginTop="10dp" app:cardCornerRadius="20dp" app:cardBackgroundColor="@color/eaton_panel2">
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/airlink_settings_intro" android:textColor="@color/eaton_text"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/airlink_replay_setup" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:minHeight="52dp" android:text="@string/airlink_setup_guide"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/airlink_open_logs" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:minHeight="52dp" android:text="@string/airlink_view_logs"/>
+          </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
         <!-- Mirror -->
         <TextView
             android:layout_width="wrap_content"
