@@ -4,8 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: [feature/eaton-airlink-branding-volume]
-  pull_request:
-    branches: [main]
+
+concurrency:
+  group: airlink-debug-${{ github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
   apk:
