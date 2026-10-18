@@ -1,5 +1,7 @@
 # Eaton AirLink
 
+**v1.0 beta development:** [feature guide and compatibility matrix](EATON_AIRLINK_V1.md). The v0.2 README below remains valid for the original mirroring tools.
+
 **Simple Android screen mirroring and external displays.**
 
 Eaton AirLink is a custom Android mirroring application in the Eaton family. It uses the same **navy / teal** design language as Eaton Vital, but remains a completely separate app and codebase.
