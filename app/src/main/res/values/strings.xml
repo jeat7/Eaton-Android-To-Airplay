@@ -21,8 +21,8 @@
 
     <!-- Settings section headers -->
     <string name="section_permissions">Permissions</string>
-    <string name="section_display">Streaming</string>
-    <string name="section_mirror">Mirror</string>
+    <string name="section_display">Picture and sound</string>
+    <string name="section_mirror">Screen sharing</string>
 
     <string name="section_input">Input</string>
     <string name="section_sunshine">Sunshine Settings</string>
@@ -40,7 +40,7 @@
     <string name="sunshine_status_casting_detail">Streaming to connected client</string>
 
     <!-- Display interaction -->
-    <string name="touchscreen_control">Touchscreen</string>
+    <string name="touchscreen_control">Phone remote</string>
     <string name="touchscreen_control_desc">Use the touchscreen on this device as an input for the virtual display. Content on the virtual display will be mirrored to this device. Only available while this app owns the virtual display.</string>
     <string name="touchscreen_control_desc_unavailable">Start a virtual display server to use this input</string>
     <string name="exit_vertical">Exit</string>
@@ -56,7 +56,7 @@
     <string name="height_label">Height</string>
     <string name="refresh_rate_label">Refresh rate</string>
     <string name="manage_this_display">Manage This Display</string>
-    <string name="manage_system_display_settings">Manage System Display Settings</string>
+    <string name="manage_system_display_settings">Manage connected display</string>
     <string name="extend_app_not_installed">Install the Extend app to proceed</string>
     <string name="touchscreen_unavailable">Touchscreen control is no longer available for this display.</string>
     <!-- Permission status -->
@@ -88,10 +88,10 @@
 
     <!-- activity_mirror_settings -->
     <string name="overlay_status">Display over other apps</string>
-    <string name="trusted_display">Create as trusted virtual display</string>
+    <string name="trusted_display">Advanced display mode</string>
     <string name="trusted_display_desc">Create the virtual display as a trusted display. This enables other apps to set keyboard policy and other features. Requires Shizuku.</string>
     <string name="display_flags">Virtual Display Flags</string>
-    <string name="change_display_flags">Change Virtual Display Flags</string>
+    <string name="change_display_flags">Advanced display settings</string>
     <string name="display_flags_customize">Enable customization</string>
     <string name="display_flags_explanation">Flags used to create the trusted virtual display. Picks the recommended set for this Android version by default. Changes apply the next time a display is created. Combinations rejected by the system fall back to automatic; see Logs for details.</string>
     <string name="flag_public" translatable="false">PUBLIC</string>
@@ -122,7 +122,7 @@
     <string name="flag_device_display_group_desc">Place the display in a display group associated with its virtual device instead of the default display group.</string>
     <string name="flag_steal_top_focus_disabled" translatable="false">STEAL_TOP_FOCUS_DISABLED</string>
     <string name="flag_steal_top_focus_disabled_desc">Do not become the top focused display by stealing top focus from another display. Ignored without OWN_FOCUS.</string>
-    <string name="mirror_only">Mirror only</string>
+    <string name="mirror_only">Mirror current screen</string>
     <string name="mirror_only_desc">Always mirror the built-in screen to the external display using MediaProjection. Launching apps onto the display will not be possible.</string>
     <string name="cast_placeholder_message">Please select an application to cast via \"Manage This Display\" or use \"Mirror only\" mode.</string>
     <string name="rotate_with_content">Rotate with content</string>
@@ -133,7 +133,7 @@
     <string name="input_to_external_display_desc">Route remote keyboard, mouse, touch, and controller input to the external display instead of the device screen.</string>
     <string name="auto_match_aspect_ratio">Match external display aspect ratio</string>
     <string name="auto_match_aspect_ratio_desc">Adjust built-in screen to match the external display aspect ratio in mirror mode.</string>
-    <string name="prevent_auto_lock">Prevent auto-lock</string>
+    <string name="prevent_auto_lock">Keep phone awake</string>
     <string name="prevent_auto_lock_desc">Modifies the system screen timeout setting.</string>
     <string name="use_global_audio_capture">Use global audio capture</string>
     <string name="use_global_audio_capture_desc">Capture all audio output via REMOTE_SUBMIX, including unsupported content.</string>
@@ -159,7 +159,7 @@
     <string name="airplay_devices_found_detail">Select a device and tap connect</string>
     <string name="airplay_connect_title">Enter PIN for %s</string>
     <string name="airplay_pin_hint">PIN code</string>
-    <string name="airplay_manual_ip">Manual IP</string>
+    <string name="airplay_manual_ip">Connect by IP address</string>
     <string name="airplay_manual_ip_hint">IP address (e.g. 192.168.1.100)</string>
     <string name="airplay_manual_port_hint">Port (default 7000)</string>
     <string name="change_displaylink_output_settings">Change DisplayLink Output Settings</string>
