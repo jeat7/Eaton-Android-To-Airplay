@@ -1,6 +1,23 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/eaton_teal</item>
+        <item name="colorOnPrimary">@color/eaton_bg</item>
+        <item name="colorPrimaryContainer">@color/eaton_panel2</item>
+        <item name="colorOnPrimaryContainer">@color/eaton_text</item>
+        <item name="colorSecondary">@color/eaton_teal_light</item>
+        <item name="colorOnSecondary">@color/eaton_bg</item>
+        <item name="colorSecondaryContainer">@color/eaton_panel</item>
+        <item name="colorOnSecondaryContainer">@color/eaton_text</item>
+        <item name="colorSurface">@color/eaton_bg</item>
+        <item name="colorOnSurface">@color/eaton_text</item>
+        <item name="colorSurfaceVariant">@color/eaton_panel2</item>
+        <item name="colorOnSurfaceVariant">@color/eaton_muted</item>
+        <item name="colorOutline">@color/eaton_line</item>
+        <item name="colorError">@color/eaton_red</item>
+        <item name="android:colorBackground">@color/eaton_bg</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
     </style>
 </resources>

@@ -1,6 +1,6 @@
 <resources>
     <!-- Tabs -->
-    <string name="overview">Overview</string>
+    <string name="overview">Home</string>
     <string name="tab_sunshine">Sunshine (Moonlight)</string>
     <string name="tab_logs">Logs</string>
     <string name="export">Export</string>
@@ -21,8 +21,8 @@
 
     <!-- Settings section headers -->
     <string name="section_permissions">Permissions</string>
-    <string name="section_display">Streaming</string>
-    <string name="section_mirror">Mirror</string>
+    <string name="section_display">Picture and sound</string>
+    <string name="section_mirror">Screen sharing</string>
 
     <string name="section_input">Input</string>
     <string name="section_sunshine">Sunshine Settings</string>
@@ -40,7 +40,7 @@
     <string name="sunshine_status_casting_detail">Streaming to connected client</string>
 
     <!-- Display interaction -->
-    <string name="touchscreen_control">Touchscreen</string>
+    <string name="touchscreen_control">Phone remote</string>
     <string name="touchscreen_control_desc">Use the touchscreen on this device as an input for the virtual display. Content on the virtual display will be mirrored to this device. Only available while this app owns the virtual display.</string>
     <string name="touchscreen_control_desc_unavailable">Start a virtual display server to use this input</string>
     <string name="exit_vertical">Exit</string>
@@ -56,7 +56,7 @@
     <string name="height_label">Height</string>
     <string name="refresh_rate_label">Refresh rate</string>
     <string name="manage_this_display">Manage This Display</string>
-    <string name="manage_system_display_settings">Manage System Display Settings</string>
+    <string name="manage_system_display_settings">Manage connected display</string>
     <string name="extend_app_not_installed">Install the Extend app to proceed</string>
     <string name="touchscreen_unavailable">Touchscreen control is no longer available for this display.</string>
     <!-- Permission status -->
@@ -88,10 +88,10 @@
 
     <!-- activity_mirror_settings -->
     <string name="overlay_status">Display over other apps</string>
-    <string name="trusted_display">Create as trusted virtual display</string>
+    <string name="trusted_display">Advanced display mode</string>
     <string name="trusted_display_desc">Create the virtual display as a trusted display. This enables other apps to set keyboard policy and other features. Requires Shizuku.</string>
     <string name="display_flags">Virtual Display Flags</string>
-    <string name="change_display_flags">Change Virtual Display Flags</string>
+    <string name="change_display_flags">Advanced display settings</string>
     <string name="display_flags_customize">Enable customization</string>
     <string name="display_flags_explanation">Flags used to create the trusted virtual display. Picks the recommended set for this Android version by default. Changes apply the next time a display is created. Combinations rejected by the system fall back to automatic; see Logs for details.</string>
     <string name="flag_public" translatable="false">PUBLIC</string>
@@ -122,7 +122,7 @@
     <string name="flag_device_display_group_desc">Place the display in a display group associated with its virtual device instead of the default display group.</string>
     <string name="flag_steal_top_focus_disabled" translatable="false">STEAL_TOP_FOCUS_DISABLED</string>
     <string name="flag_steal_top_focus_disabled_desc">Do not become the top focused display by stealing top focus from another display. Ignored without OWN_FOCUS.</string>
-    <string name="mirror_only">Mirror only</string>
+    <string name="mirror_only">Mirror current screen</string>
     <string name="mirror_only_desc">Always mirror the built-in screen to the external display using MediaProjection. Launching apps onto the display will not be possible.</string>
     <string name="cast_placeholder_message">Please select an application to cast via \"Manage This Display\" or use \"Mirror only\" mode.</string>
     <string name="rotate_with_content">Rotate with content</string>
@@ -133,7 +133,7 @@
     <string name="input_to_external_display_desc">Route remote keyboard, mouse, touch, and controller input to the external display instead of the device screen.</string>
     <string name="auto_match_aspect_ratio">Match external display aspect ratio</string>
     <string name="auto_match_aspect_ratio_desc">Adjust built-in screen to match the external display aspect ratio in mirror mode.</string>
-    <string name="prevent_auto_lock">Prevent auto-lock</string>
+    <string name="prevent_auto_lock">Keep phone awake</string>
     <string name="prevent_auto_lock_desc">Modifies the system screen timeout setting.</string>
     <string name="use_global_audio_capture">Use global audio capture</string>
     <string name="use_global_audio_capture_desc">Capture all audio output via REMOTE_SUBMIX, including unsupported content.</string>
@@ -149,7 +149,7 @@
     <string name="airplay1_mode">Support for legacy 3rd party receivers</string>
     <string name="airplay1_mode_desc">Enable only when used with legacy receivers including Anker Nebula Cast (AirPin) which do not have modern AirPlay support.</string>
     <string name="about_airplay_notice">This app is not affiliated with Apple.</string>
-    <string name="airplay_discover">Scan for AirPlay receivers</string>
+    <string name="airplay_discover">Scan for TVs</string>
     <string name="airplay_no_devices">AirPlay receiver not connected</string>
     <string name="airplay_no_devices_detail">Search for receivers on your network</string>
     <string name="airplay_connecting">Connecting to AirPlay</string>
@@ -159,7 +159,7 @@
     <string name="airplay_devices_found_detail">Select a device and tap connect</string>
     <string name="airplay_connect_title">Enter PIN for %s</string>
     <string name="airplay_pin_hint">PIN code</string>
-    <string name="airplay_manual_ip">Manual IP</string>
+    <string name="airplay_manual_ip">Connect by IP address</string>
     <string name="airplay_manual_ip_hint">IP address (e.g. 192.168.1.100)</string>
     <string name="airplay_manual_port_hint">Port (default 7000)</string>
     <string name="change_displaylink_output_settings">Change DisplayLink Output Settings</string>
@@ -174,7 +174,7 @@
     <string name="manual_input_client_title">Manual input client</string>
 
     <!-- MainActivity status -->
-    <string name="mirror_app_name">Mirror</string>
+    <string name="mirror_app_name">Eaton AirLink</string>
     <string name="projection_service_running">Screen projection active</string>
 
     <!-- SunshineServer PIN dialog -->
@@ -199,4 +199,96 @@
     <string name="displaylink_apk_url_label">Custom DisplayLink Presenter app download URL</string>
     <string name="about_displaylink_legal_notice">This app uses publicly available drivers to support DisplayLink\u00ae devices. Users should comply with the relevant licensing terms of Synaptics when using DisplayLink\u00ae related features. This app is not affiliated with Synaptics.</string>
 
+    <string name="airplay_follow_phone_volume">Follow phone media volume</string>
+    <string name="airplay_follow_phone_volume_desc">Adjusts streamed AirPlay sound using the phone volume buttons. Does not change the TV speaker volume.</string>
+    <string name="airlink_eyebrow">EATON | CONNECTED EXPERIENCES</string>
+    <string name="airlink_home_intro">Mirror your Android screen to TVs and displays with simple setup.</string>
+    <string name="airlink_connect_tv">Connect to a TV</string>
+    <string name="airlink_setup_guide">Setup guide</string>
+    <string name="airlink_connect_nav">Connect</string>
+    <string name="airlink_help_nav">Help</string>
+    <string name="airlink_connect_options">Ways to connect</string>
+    <string name="airlink_mirror_tv">Mirror to TV</string>
+    <string name="airlink_mirror_tv_desc">Show your phone on an AirPlay-compatible TV or receiver.</string>
+    <string name="airlink_moonlight">Stream to Moonlight</string>
+    <string name="airlink_moonlight_desc">Stream a virtual screen to a Moonlight client.</string>
+    <string name="airlink_usb_display">USB display</string>
+    <string name="airlink_usb_display_desc">Connect supported wired and DisplayLink adapters.</string>
+    <string name="airlink_phone_remote">Phone remote</string>
+    <string name="airlink_remote_desc">Control an active mirrored display from your phone.</string>
+    <string name="airlink_remote_waiting">Connect a display first to enable phone controls.</string>
+    <string name="airlink_remote_ready">Tap to control the connected display.</string>
+    <string name="airlink_setup_status">Setup status</string>
+    <string name="airlink_core_ready">Ready to mirror</string>
+    <string name="airlink_setup_optional_ready">Optional floating controls are enabled. Advanced access is not needed for AirPlay.</string>
+    <string name="airlink_setup_optional_not_ready">Basic mirroring works without advanced access. Floating controls are optional.</string>
+    <string name="airlink_overlay_ready">Enabled for floating controls.</string>
+    <string name="airlink_overlay_optional">Optional controls shown over other apps.</string>
+    <string name="airlink_shizuku_optional">Optional: needed only for advanced display and remote input.</string>
+    <string name="airlink_floating_controls">Floating controls</string>
+    <string name="airlink_advanced_optional">Advanced features (Shizuku)</string>
+    <string name="airlink_enable_overlay">Enable floating controls</string>
+    <string name="airlink_allow_advanced">Allow advanced controls</string>
+    <string name="airlink_last_device">Last connected: %1$s. Open Mirror to TV to reconnect.</string>
+    <string name="airlink_no_last_device">Your most recent TV will appear after the first connection.</string>
+    <string name="status_ready">Ready to connect</string>
+    <string name="status_not_connected">Not connected</string>
+    <string name="airlink_connect_intro">Choose how you want to share your screen. Every method in one place.</string>
+    <string name="airlink_wireless">Wireless</string>
+    <string name="airlink_wired">Wired</string>
+    <string name="airlink_controls">Controls</string>
+    <string name="airlink_connection_help">Connection help</string>
+    <string name="airlink_help_title">Help and setup</string>
+    <string name="airlink_help_intro">Simple advice for connecting and getting the most from AirLink.</string>
+    <string name="airlink_getting_started">Getting started</string>
+    <string name="airlink_troubleshooting">Troubleshooting</string>
+    <string name="airlink_help_airplay_title">Mirror to a TV</string>
+    <string name="airlink_help_airplay_body">Connect your phone and TV to the same Wi-Fi. Open AirPlay on the TV, scan for receivers, choose one and approve screen capture. Protected video might not mirror.</string>
+    <string name="airlink_help_moonlight_title">Stream to Moonlight</string>
+    <string name="airlink_help_moonlight_body">Start Sunshine from the Moonlight screen, then pair a Moonlight client. Extra remote input features may require Shizuku.</string>
+    <string name="airlink_help_usb_title">Use a USB display</string>
+    <string name="airlink_help_usb_body">Use a compatible DisplayLink USB adapter and follow its driver setup. This requires supported hardware.</string>
+    <string name="airlink_help_cant_find">TV not showing up?</string>
+    <string name="airlink_help_cant_find_body">Check both devices are on the same network, enable AirPlay, disable VPN or guest network isolation and scan again. Manual IP is under Mirror to TV.</string>
+    <string name="airlink_help_no_sound">No sound on TV?</string>
+    <string name="airlink_help_no_sound_body">Allow audio capture when requested. Some apps block audio capture. If too quiet, try switching off Follow phone media volume in Mirror to TV settings.</string>
+    <string name="airlink_help_volume">TV volume too high?</string>
+    <string name="airlink_help_volume_body">AirLink does not intentionally reset the TV volume on connection. Use the TV remote for speaker volume. If it still changes, disconnect and share your TV software version.</string>
+    <string name="airlink_help_permissions">About permissions</string>
+    <string name="airlink_help_permissions_body">Android asks for screen capture when connecting. Floating controls and Shizuku are optional. Audio capture requires permission.</string>
+    <string name="airlink_settings_intro">Eaton AirLink includes all the original Mirror power tools. Adjust advanced settings here or revisit the setup guide.</string>
+    <string name="airlink_view_logs">Diagnostics and logs</string>
+    <string name="airlink_welcome">Welcome to Eaton AirLink</string>
+    <string name="airlink_welcome_body">Mirror your Android screen to a TV or external display with a few simple steps.</string>
+    <string name="airlink_get_started">Get started</string>
+    <string name="airlink_skip">Skip</string>
+    <string name="airlink_back">Back</string>
+    <string name="airlink_next">Next</string>
+    <string name="airlink_finish">Go to Home</string>
+    <string name="airlink_choose_route">What would you like to do?</string>
+    <string name="airlink_permissions_title">Check your setup</string>
+    <string name="airlink_permissions_intro">AirPlay works without Shizuku or root. Optional features can be enabled later.</string>
+    <string name="airlink_audio_access">Mirrored audio permission</string>
+    <string name="airlink_capture_explainer">Android will request screen capture permission when you connect. Advanced permissions are optional.</string>
+    <string name="airlink_optional">Optional</string>
+    <string name="airlink_ready_title">You are ready</string>
+    <string name="airlink_ready_body">Choose a connection, scan for your TV, then approve screen capture. Reopen this guide from Help or Settings.</string>
+    <string name="airlink_open_connect">Open Connect</string>
+  <string name="airlink_airplay_hint">Both devices should be on the same Wi-Fi. Tap Scan for TVs, then tap the device you want.</string>
+  <string name="airlink_bad_port">Enter a valid numeric port.</string>
+  <string name="airlink_scan_tvs">Scan for TVs</string>
+  <string name="airlink_connect_selected">Connect selected TV</string>
+  <string name="airlink_reconnect">Reconnect to last TV</string>
+  <string name="airlink_reconnect_named">Reconnect to %1$s</string>
+<string name="airlink_tools">Tools</string>
+<string name="airlink_tools_intro">Choose a tool for better casting, smart TV controls and troubleshooting.</string>
+<string name="airlink_remote">TV remote</string>
+<string name="airlink_profiles">Favourite TVs</string>
+<string name="airlink_session">Connected display</string>
+<string name="airlink_picture">Picture and screen fit</string>
+<string name="airlink_showcase">Media showcase</string>
+<string name="airlink_health">Connection health</string>
+<string name="airlink_diagnostics">Connection checker</string>
+<string name="airlink_receivers">More receiver types</string>
+<string name="airlink_quick_tile">AirLink quick connect</string>
 </resources>
