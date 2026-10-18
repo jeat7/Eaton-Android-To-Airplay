@@ -285,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onDestroy() {
+    AirLinkFloatingControls.hide();
     super.onDestroy();
     Shizuku.removeRequestPermissionResultListener(requestPermissionResultListener);
     Shizuku.removeBinderReceivedListener(_binderReceivedListener);

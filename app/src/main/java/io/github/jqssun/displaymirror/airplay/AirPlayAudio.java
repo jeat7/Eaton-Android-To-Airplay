@@ -88,6 +88,9 @@ public class AirPlayAudio {
       try {
         int n = s.read(buf);
         if (n > 0) {
+          if (Pref.getAirPlayStreamMuted()) {
+            java.util.Arrays.fill(buf, 0, n, (byte) 0);
+          }
           if (Pref.getAirPlayFollowPhoneVolume() && audioManager != null) {
             long now = SystemClock.uptimeMillis();
             if (lastVolumeRead < 0 || now - lastVolumeRead >= 200) {
