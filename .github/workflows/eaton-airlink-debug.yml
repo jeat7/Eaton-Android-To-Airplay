@@ -41,6 +41,11 @@ jobs:
         run: |
           chmod +x ./build.sh ./gradlew
           ./build.sh
+      - name: Use official OpenSSL source archive
+        run: |
+          # Third-party openssl-cmake points to an outdated mirror that can return HTML.
+          # Keep the pinned OpenSSL version, but download from the upstream GitHub release.
+          sed -i 's#https://mirror.viaduck.org/openssl/openssl-${OPENSSL_BUILD_VERSION}.tar.gz#https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_BUILD_VERSION}/openssl-${OPENSSL_BUILD_VERSION}.tar.gz#' app/src/main/cpp/dependencies/openssl-cmake/cmake/BuildOpenSSL.cmake
       - name: Build APK
         run: ./gradlew assembleDebug --stacktrace
       - name: Unit tests
