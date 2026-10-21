@@ -6,6 +6,10 @@
 
 Eaton AirLink is a custom Android mirroring application in the Eaton family. It uses the same **navy / teal** design language as Eaton Vital, but remains a completely separate app and codebase.
 
+## Single-app AirPlay sharing (experimental)
+
+Open **AirPlay > Choose an app to share**, turn it on, then reconnect to the TV. On supported Android 14+ devices, the system dialog lets you pick one app or the entire screen. Sharing one app hides other phone app screens, although Android can pause the shared app in the background, and audio may include other phone apps. The existing Shizuku + Extend display path is for running an app separately on the TV.
+
 ## Features
 
 - **Mirror to TV (AirPlay):** find and connect to compatible TVs and AirPlay receivers, with quick reconnect to your last successfully paired receiver

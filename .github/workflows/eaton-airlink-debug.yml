@@ -3,7 +3,7 @@ name: Eaton AirLink - Debug APK
 on:
   workflow_dispatch:
   push:
-    branches: [feature/eaton-airlink-branding-volume, feature/eaton-airlink-v1-smart-hub]
+    branches: [feature/eaton-airlink-branding-volume, feature/eaton-airlink-v1-smart-hub, feature/airlink-single-app-apk]
 
 concurrency:
   group: airlink-debug-${{ github.ref_name }}
@@ -25,10 +25,27 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.25.10'
+      - name: Select an available Android NDK r27
+        run: |
+          # SDK package servers occasionally serve incomplete downloads for pinned 27.0.
+          # Reuse an installed r27 on the runner when available.
+          NDK_PATH="$(find "$ANDROID_HOME/ndk" -mindepth 1 -maxdepth 1 -type d -name '27.*' 2>/dev/null | sort -V | tail -1)"
+          if [ -n "$NDK_PATH" ] && [ -f "$NDK_PATH/source.properties" ]; then
+            NDK_VERSION="$(basename "$NDK_PATH")"
+            echo "Using runner NDK: $NDK_VERSION"
+            sed -i -E "s/ndkVersion \"[0-9.]+\"/ndkVersion \"$NDK_VERSION\"/" app/build.gradle
+          else
+            echo "No installed NDK r27 found; pinned project NDK will be downloaded"
+          fi
       - name: Build existing native AirPlay engine
         run: |
           chmod +x ./build.sh ./gradlew
           ./build.sh
+      - name: Use official OpenSSL source archive
+        run: |
+          # Third-party openssl-cmake points to an outdated mirror that can return HTML.
+          # Keep the pinned OpenSSL version, but download from the upstream GitHub release.
+          sed -i 's#https://mirror.viaduck.org/openssl/openssl-${OPENSSL_BUILD_VERSION}.tar.gz#https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_BUILD_VERSION}/openssl-${OPENSSL_BUILD_VERSION}.tar.gz#' app/src/main/cpp/dependencies/openssl-cmake/cmake/BuildOpenSSL.cmake
       - name: Build APK
         run: ./gradlew assembleDebug --stacktrace
       - name: Unit tests
