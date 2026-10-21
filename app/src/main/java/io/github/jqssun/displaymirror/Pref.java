@@ -33,6 +33,7 @@ public class Pref {
 
   // airplay
   public static final String KEY_AIRPLAY1_MODE = "airplay1_mode";
+  public static final String KEY_AIRPLAY_ALLOW_APP_SHARING = "airplay_allow_app_sharing";
   public static final String KEY_AIRPLAY_WIDTH = "airplay_width";
   public static final String KEY_AIRPLAY_HEIGHT = "airplay_height";
   public static final String KEY_AIRPLAY_REFRESH_RATE = "airplay_refresh_rate";
@@ -140,6 +141,11 @@ public class Pref {
 
   public static boolean getAirPlay1Mode() {
     return getBoolean(KEY_AIRPLAY1_MODE, false);
+  }
+
+  public static boolean getAirPlayAllowAppSharing() {
+    // Off by default to preserve existing full-screen and Extend sessions.
+    return getBoolean(KEY_AIRPLAY_ALLOW_APP_SHARING, false);
   }
 
   public static int getAirPlayWidth() {
