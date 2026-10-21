@@ -58,7 +58,14 @@ public class CreateVirtualDisplay {
   }
 
   public static VirtualDisplay createForStream(VirtualDisplayArgs args, Surface surface) {
-    if (ShizukuUtils.hasPermission() && Pref.getTrustedDisplay()) {
+    return createForStream(args, surface, false);
+  }
+
+  // App-window capture must use the consented MediaProjection, even when Shizuku is available.
+  // The regular path still allows an independent trusted display for Extend.
+  public static VirtualDisplay createForStream(
+      VirtualDisplayArgs args, Surface surface, boolean forceMediaProjection) {
+    if (!forceMediaProjection && ShizukuUtils.hasPermission() && Pref.getTrustedDisplay()) {
       // decide before createVirtualDisplay nulls State's projection slot
       boolean mirror = streamMirrors() && State.getMediaProjection() != null;
       try {
@@ -86,7 +93,9 @@ public class CreateVirtualDisplay {
             null,
             null);
     State.setMediaProjection(null);
-    changeAspectRatio(args.width, args.height);
+    if (!forceMediaProjection) {
+      changeAspectRatio(args.width, args.height);
+    }
     return display;
   }
 
