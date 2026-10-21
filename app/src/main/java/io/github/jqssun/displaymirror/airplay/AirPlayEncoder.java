@@ -78,7 +78,11 @@ public class AirPlayEncoder {
 
       boolean rotate = Pref.getRotateWithContent();
       boolean crop = Pref.getCropBlackBorders();
-      if (CreateVirtualDisplay.streamMirrors() && (rotate || crop)) {
+      // Use the consented MediaProjection even when a trusted Extend display is available.
+      boolean appSharing =
+          android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+              && Pref.getAirPlayAllowAppSharing();
+      if ((CreateVirtualDisplay.streamMirrors() || appSharing) && (rotate || crop)) {
         pipeline =
             new StreamRenderer(
                 new VirtualDisplayArgs("AirPlay", screenWidth, screenHeight, fps, screenDpi, false),
@@ -89,7 +93,9 @@ public class AirPlayEncoder {
             (input, w, h) -> {
               virtualDisplay =
                   CreateVirtualDisplay.createForStream(
-                      new VirtualDisplayArgs("AirPlay", w, h, fps, screenDpi, false), input);
+                      new VirtualDisplayArgs("AirPlay", w, h, fps, screenDpi, false),
+                      input,
+                      appSharing);
               if (virtualDisplay == null) {
                 State.log("AirPlay: failed to create virtual display");
                 AirPlayState.clearTouchTarget();
@@ -104,7 +110,8 @@ public class AirPlayEncoder {
             CreateVirtualDisplay.createForStream(
                 new VirtualDisplayArgs(
                     "AirPlay", screenWidth, screenHeight, fps, screenDpi, rotate),
-                inputSurface);
+                inputSurface,
+                appSharing);
         if (virtualDisplay == null) {
           State.log("AirPlay: failed to create virtual display");
           AirPlayState.clearTouchTarget();
