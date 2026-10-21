@@ -1,5 +1,6 @@
 package io.github.jqssun.displaymirror.airplay;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +79,16 @@ public class AirPlayFragment extends Fragment {
     manualPort = view.findViewById(R.id.airplay_manual_port);
     MaterialButton manualBtn = view.findViewById(R.id.airplay_manual_btn);
     MaterialButton manualConnectBtn = view.findViewById(R.id.airplay_manual_connect_btn);
+
+    MaterialSwitch appSharingSwitch = view.findViewById(R.id.airplay_app_sharing_switch);
+    appSharingSwitch.setChecked(Pref.getAirPlayAllowAppSharing());
+    appSharingSwitch.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE);
+    appSharingSwitch.setOnCheckedChangeListener(
+        (button, checked) ->
+            Pref.getPreferences()
+                .edit()
+                .putBoolean(Pref.KEY_AIRPLAY_ALLOW_APP_SHARING, checked)
+                .apply());
 
     MaterialSwitch airplay1ModeSwitch = view.findViewById(R.id.airplay1_mode_switch);
     airplay1ModeSwitch.setChecked(Pref.getAirPlay1Mode());
