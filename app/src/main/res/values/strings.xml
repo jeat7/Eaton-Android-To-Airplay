@@ -146,6 +146,8 @@
     <string name="sunshine_device_name">Device name</string>
     <string name="section_airplay_controls">Controls</string>
     <string name="section_airplay">AirPlay Settings</string>
+    <string name="airplay_app_sharing">Choose an app to share</string>
+    <string name="airplay_app_sharing_desc">On Android 14 QPR2 or later, offer a single app or entire screen in the Android casting dialog. Other app screens stay off the TV. For a separate TV workspace, switch this off and use Shizuku with Extend. Some other phone audio may still be captured. Takes effect on the next connection.</string>
     <string name="airplay1_mode">Support for legacy 3rd party receivers</string>
     <string name="airplay1_mode_desc">Enable only when used with legacy receivers including Anker Nebula Cast (AirPin) which do not have modern AirPlay support.</string>
     <string name="about_airplay_notice">This app is not affiliated with Apple.</string>
