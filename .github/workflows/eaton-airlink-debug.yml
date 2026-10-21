@@ -25,6 +25,18 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.25.10'
+      - name: Select an available Android NDK r27
+        run: |
+          # SDK package servers occasionally serve incomplete downloads for pinned 27.0.
+          # Reuse an installed r27 on the runner when available.
+          NDK_PATH="$(find "$ANDROID_HOME/ndk" -mindepth 1 -maxdepth 1 -type d -name '27.*' 2>/dev/null | sort -V | tail -1)"
+          if [ -n "$NDK_PATH" ] && [ -f "$NDK_PATH/source.properties" ]; then
+            NDK_VERSION="$(basename "$NDK_PATH")"
+            echo "Using runner NDK: $NDK_VERSION"
+            sed -i -E "s/ndkVersion \"[0-9.]+\"/ndkVersion \"$NDK_VERSION\"/" app/build.gradle
+          else
+            echo "No installed NDK r27 found; pinned project NDK will be downloaded"
+          fi
       - name: Build existing native AirPlay engine
         run: |
           chmod +x ./build.sh ./gradlew
