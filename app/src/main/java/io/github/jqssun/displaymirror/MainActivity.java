@@ -313,17 +313,25 @@ public class MainActivity extends AppCompatActivity {
 
   public void startAirPlayProjection() {
     State.setProjectionReadyCallback(() -> AirPlayService.getInstance().onProjectionReady());
-    startMediaProjectionService();
+    // Only AirPlay opts into the Android single-app chooser. Sunshine keeps its existing behavior.
+    startMediaProjectionService(Pref.getAirPlayAllowAppSharing());
   }
 
   public void startMediaProjectionService() {
+    startMediaProjectionService(false);
+  }
+
+  private void startMediaProjectionService(boolean allowAppSharing) {
     MediaProjectionManager mpm =
         (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
     if (mpm != null) {
       Intent captureIntent;
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-        captureIntent =
-            mpm.createScreenCaptureIntent(MediaProjectionConfig.createConfigForDefaultDisplay());
+        MediaProjectionConfig config =
+            allowAppSharing
+                ? MediaProjectionConfig.createConfigForUserChoice()
+                : MediaProjectionConfig.createConfigForDefaultDisplay();
+        captureIntent = mpm.createScreenCaptureIntent(config);
       } else {
         captureIntent = mpm.createScreenCaptureIntent();
       }
