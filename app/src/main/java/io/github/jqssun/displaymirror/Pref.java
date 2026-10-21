@@ -33,6 +33,7 @@ public class Pref {
 
   // airplay
   public static final String KEY_AIRPLAY1_MODE = "airplay1_mode";
+  public static final String KEY_AIRPLAY_ALLOW_APP_SHARING = "airplay_allow_app_sharing";
   public static final String KEY_AIRPLAY_FOLLOW_PHONE_VOLUME = "airplay_follow_phone_volume";
   public static final String KEY_AIRPLAY_STREAM_MUTED = "airplay_stream_muted";
   public static final String KEY_AIRPLAY_WIDTH = "airplay_width";
@@ -142,6 +143,10 @@ public class Pref {
 
   public static boolean getAirPlay1Mode() {
     return getBoolean(KEY_AIRPLAY1_MODE, false);
+  }
+
+  public static boolean getAirPlayAllowAppSharing() {
+    return getBoolean(KEY_AIRPLAY_ALLOW_APP_SHARING, false);
   }
 
   public static boolean getAirPlayStreamMuted() {
