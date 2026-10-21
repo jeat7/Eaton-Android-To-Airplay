@@ -37,6 +37,7 @@ Mirror gets pixels onto a display. What application runs on it, where it renders
 ## Features
 
 - Outbound AirPlay 2 (modern) and AirPlay 1 (legacy) screen mirroring to Apple devices or third-party AirPlay receivers
+- Optional AirPlay single-app sharing on Android 14 QPR2+: enable **Choose an app to share** under AirPlay Settings and reconnect. Android then lets you choose **A single app** or **Entire screen**. This captures the app window while you use other apps on the phone, subject to Android app lifecycle restrictions; playback audio may still include other apps. Turn this option off and use Shizuku with Extend for an independent TV display.
 - Outbound Moonlight streaming and remote control, with Sunshine server built in
 - DisplayLink USB output via USB host mode (including USB 2)
 - Each display sink is registered as a virtual display via `DisplayManager` API allowing other applications to launch activities on it
