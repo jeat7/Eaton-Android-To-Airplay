@@ -269,6 +269,12 @@
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
             android:visibility="gone" android:text="@string/airlink_tv_apps_choose" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/airplay_tv_apps_control_btn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+            android:visibility="gone" android:text="@string/airlink_tv_apps_control" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
             android:paddingHorizontal="16dp" android:paddingBottom="12dp"
             android:text="@string/airlink_tv_apps_note"
