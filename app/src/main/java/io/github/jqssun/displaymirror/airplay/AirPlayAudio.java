@@ -28,11 +28,15 @@ public class AirPlayAudio {
 
   // open can wait for Shizuku bind, so it runs on the read thread
   public void start(MediaProjection projection) {
+    start(projection, -1);
+  }
+
+  public void start(MediaProjection projection, int matchingUid) {
     if (running) {
       return;
     }
     running = true;
-    readThread = new Thread(() -> _run(projection), "AirPlayAudio");
+    readThread = new Thread(() -> _run(projection, matchingUid), "AirPlayAudio");
     readThread.start();
   }
 
@@ -53,10 +57,10 @@ public class AirPlayAudio {
     }
   }
 
-  private void _run(MediaProjection projection) {
+  private void _run(MediaProjection projection, int matchingUid) {
     // drain has to keep up with capture or samples are lost
     Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
-    CaptureAudio.PcmStream s = CaptureAudio.openPcm16(projection, SAMPLE_RATE);
+    CaptureAudio.PcmStream s = CaptureAudio.openPcm16(projection, SAMPLE_RATE, matchingUid);
     if (s == null) {
       running = false;
       return;
