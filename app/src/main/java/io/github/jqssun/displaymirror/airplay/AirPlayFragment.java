@@ -80,15 +80,34 @@ public class AirPlayFragment extends Fragment {
     MaterialButton manualBtn = view.findViewById(R.id.airplay_manual_btn);
     MaterialButton manualConnectBtn = view.findViewById(R.id.airplay_manual_connect_btn);
 
+    MaterialSwitch tvAppsSwitch = view.findViewById(R.id.airplay_tv_apps_switch);
+    MaterialButton tvAppsButton = view.findViewById(R.id.airplay_tv_apps_choose_btn);
     MaterialSwitch appSharingSwitch = view.findViewById(R.id.airplay_app_sharing_switch);
     appSharingSwitch.setChecked(Pref.getAirPlayAllowAppSharing());
     appSharingSwitch.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE);
-    appSharingSwitch.setOnCheckedChangeListener(
-        (button, checked) ->
-            Pref.getPreferences()
-                .edit()
-                .putBoolean(Pref.KEY_AIRPLAY_ALLOW_APP_SHARING, checked)
-                .apply());
+    appSharingSwitch.setOnCheckedChangeListener((button, checked) -> {
+      if (checked && tvAppsSwitch.isChecked()) tvAppsSwitch.setChecked(false);
+      Pref.getPreferences().edit()
+          .putBoolean(Pref.KEY_AIRPLAY_ALLOW_APP_SHARING, checked).apply();
+      if (AirPlayService.getInstance().isConnected())
+        Toast.makeText(requireContext(), R.string.airlink_tv_apps_reconnect, Toast.LENGTH_LONG).show();
+    });
+    tvAppsSwitch.setChecked(Pref.getAirPlayTvAppsMode());
+    tvAppsButton.setVisibility(Pref.getAirPlayTvAppsMode() ? View.VISIBLE : View.GONE);
+    tvAppsButton.setOnClickListener(v -> AirPlayTvApps.showPicker(requireActivity()));
+    tvAppsSwitch.setOnCheckedChangeListener((button, checked) -> {
+      if (checked && !io.github.jqssun.displaymirror.shizuku.ShizukuUtils.hasPermission()) {
+        tvAppsSwitch.setChecked(false);
+        AirPlayTvApps.showSetup(requireActivity());
+        return;
+      }
+      if (checked) appSharingSwitch.setChecked(false);
+      Pref.getPreferences().edit()
+          .putBoolean(Pref.KEY_AIRPLAY_TV_APPS_MODE, checked).apply();
+      tvAppsButton.setVisibility(checked ? View.VISIBLE : View.GONE);
+      if (AirPlayService.getInstance().isConnected())
+        Toast.makeText(requireContext(), R.string.airlink_tv_apps_reconnect, Toast.LENGTH_LONG).show();
+    });
 
     MaterialSwitch airplay1ModeSwitch = view.findViewById(R.id.airplay1_mode_switch);
     airplay1ModeSwitch.setChecked(Pref.getAirPlay1Mode());
@@ -355,6 +374,8 @@ public class AirPlayFragment extends Fragment {
       return;
     }
     manageDisplayBtn.setVisibility(
-        AirPlayState.getVirtualDisplayId() > 0 ? View.VISIBLE : View.GONE);
+        AirPlayState.getVirtualDisplayId() > 0
+            && !AirPlayService.getInstance().isTvAppsSessionMode()
+            ? View.VISIBLE : View.GONE);
   }
 }
