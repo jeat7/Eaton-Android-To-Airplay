@@ -152,6 +152,8 @@
     <string name="airlink_tv_apps_title">TV Apps (independent display)</string>
     <string name="airlink_tv_apps_description">Run an app on Sky Glass instead of recording your phone screen. Requires Shizuku.</string>
     <string name="airlink_tv_apps_choose">Choose an app for the TV</string>
+    <string name="airlink_tv_apps_control">Control the TV app</string>
+    <string name="airlink_tv_apps_connect_to_control">Connect to your TV in TV Apps mode first.</string>
     <string name="airlink_tv_apps_note">Enable TV Apps, choose your app, then connect to your TV. No Extend installation is needed. Protected videos or apps that reject second screens might not work. Reconnect after changing modes.</string>
     <string name="airlink_tv_apps_permission_title">Advanced permission required</string>
     <string name="airlink_tv_apps_install_shizuku">TV Apps needs Shizuku to create an independent display. Install and start Shizuku using wireless debugging (or root), then return here and allow Eaton AirLink access.</string>
