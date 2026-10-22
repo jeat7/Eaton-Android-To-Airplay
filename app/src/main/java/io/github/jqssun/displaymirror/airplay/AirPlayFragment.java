@@ -312,6 +312,15 @@ public class AirPlayFragment extends Fragment {
     return view;
   }
 
+  @Override
+  public void onDestroyView() {
+    // AirPlayService is a singleton: do not retain this Fragment or update its dead views.
+    AirPlayService.getInstance().setListener(null);
+    super.onDestroyView();
+    tvControlBtn = null;
+    manageDisplayBtn = null;
+  }
+
   private void _updateDeviceList() {
     List<AirPlayService.AirPlayDevice> devices = AirPlayService.getInstance().getDevices();
     deviceCards.removeAllViews();
