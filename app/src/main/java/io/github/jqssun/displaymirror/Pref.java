@@ -34,6 +34,8 @@ public class Pref {
   // airplay
   public static final String KEY_AIRPLAY1_MODE = "airplay1_mode";
   public static final String KEY_AIRPLAY_ALLOW_APP_SHARING = "airplay_allow_app_sharing";
+  public static final String KEY_AIRPLAY_TV_APPS_MODE = "airplay_tv_apps_mode";
+  public static final String KEY_AIRPLAY_TV_APP_PACKAGE = "airplay_tv_app_package";
   public static final String KEY_AIRPLAY_FOLLOW_PHONE_VOLUME = "airplay_follow_phone_volume";
   public static final String KEY_AIRPLAY_STREAM_MUTED = "airplay_stream_muted";
   public static final String KEY_AIRPLAY_WIDTH = "airplay_width";
@@ -147,6 +149,14 @@ public class Pref {
 
   public static boolean getAirPlayAllowAppSharing() {
     return getBoolean(KEY_AIRPLAY_ALLOW_APP_SHARING, false);
+  }
+
+  public static boolean getAirPlayTvAppsMode() {
+    return getBoolean(KEY_AIRPLAY_TV_APPS_MODE, false);
+  }
+
+  public static String getAirPlayTvAppPackage() {
+    return getString(KEY_AIRPLAY_TV_APP_PACKAGE, "");
   }
 
   public static boolean getAirPlayStreamMuted() {
