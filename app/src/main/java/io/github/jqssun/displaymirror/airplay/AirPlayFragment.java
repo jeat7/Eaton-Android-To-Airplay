@@ -16,6 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 import io.github.jqssun.displaymirror.MainActivity;
+import io.github.jqssun.displaymirror.MirrorTouchscreenBridge;
 import io.github.jqssun.displaymirror.Pref;
 import io.github.jqssun.displaymirror.R;
 import io.github.jqssun.displaymirror.State;
@@ -28,7 +29,7 @@ public class AirPlayFragment extends Fragment {
   private ImageView statusIcon;
   private Spinner deviceSpinner;
   private LinearLayout deviceCards;
-  private MaterialButton scanBtn, connectBtn, manageDisplayBtn;
+  private MaterialButton scanBtn, connectBtn, manageDisplayBtn, tvControlBtn;
   private LinearLayout manualLayout;
   private TextInputEditText manualIp, manualPort;
   private AirPlayService.AirPlayDevice _pendingDevice;
@@ -95,6 +96,17 @@ public class AirPlayFragment extends Fragment {
     tvAppsSwitch.setChecked(Pref.getAirPlayTvAppsMode());
     tvAppsButton.setVisibility(Pref.getAirPlayTvAppsMode() ? View.VISIBLE : View.GONE);
     tvAppsButton.setOnClickListener(v -> AirPlayTvApps.showPicker(requireActivity()));
+    tvControlBtn = view.findViewById(R.id.airplay_tv_apps_control_btn);
+    tvControlBtn.setOnClickListener(v -> {
+      MirrorTouchscreenBridge.TargetInfo target =
+          MirrorTouchscreenBridge.findTarget(AirPlayState.getVirtualDisplayId());
+      if (target == null || !AirPlayService.getInstance().isTvAppsSessionMode()) {
+        Toast.makeText(requireContext(), R.string.airlink_tv_apps_connect_to_control,
+            Toast.LENGTH_LONG).show();
+        return;
+      }
+      startActivity(MirrorTouchscreenBridge.createInternalIntent(requireContext(), target));
+    });
     tvAppsSwitch.setOnCheckedChangeListener((button, checked) -> {
       if (checked && !io.github.jqssun.displaymirror.shizuku.ShizukuUtils.hasPermission()) {
         tvAppsSwitch.setChecked(false);
@@ -377,5 +389,11 @@ public class AirPlayFragment extends Fragment {
         AirPlayState.getVirtualDisplayId() > 0
             && !AirPlayService.getInstance().isTvAppsSessionMode()
             ? View.VISIBLE : View.GONE);
+    if (tvControlBtn != null) {
+      tvControlBtn.setVisibility(
+          AirPlayService.getInstance().isTvAppsSessionMode()
+              && MirrorTouchscreenBridge.findTarget(AirPlayState.getVirtualDisplayId()) != null
+              ? View.VISIBLE : View.GONE);
+    }
   }
 }
