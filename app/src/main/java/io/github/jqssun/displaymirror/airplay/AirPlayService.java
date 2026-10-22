@@ -198,16 +198,17 @@ public class AirPlayService {
                           }
                         }
                         if (ip == null) return;
-                        String key = ip + ":" + port;
-                        for (AirPlayDevice d : devices) {
-                          if ((d.ip + ":" + d.port).equals(key)) return;
-                        }
-                        AirPlayDevice dev = new AirPlayDevice(name, ip, port);
-                        devices.add(dev);
-                        State.log("AirPlay: found " + name + " at " + ip + ":" + port);
                         final String devIp = ip;
+                        // Device list belongs to the UI thread. Never modify an ArrayList from JmDNS
+                        // while a Fragment may be rendering it on the main thread.
                         mainHandler.post(
                             () -> {
+                              String key = devIp + ":" + port;
+                              for (AirPlayDevice d : devices) {
+                                if ((d.ip + ":" + d.port).equals(key)) return;
+                              }
+                              devices.add(new AirPlayDevice(name, devIp, port));
+                              State.log("AirPlay: found " + name + " at " + devIp + ":" + port);
                               if (listener != null) listener.onDeviceFound(name, devIp, port);
                             });
                       }
