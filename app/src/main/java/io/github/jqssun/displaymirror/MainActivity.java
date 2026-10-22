@@ -322,7 +322,8 @@ public class MainActivity extends AppCompatActivity {
   public void startAirPlayProjection() {
     State.setProjectionReadyCallback(() -> AirPlayService.getInstance().onProjectionReady());
     // Enable the Android app picker for AirPlay only; Sunshine keeps full-screen capture.
-    startMediaProjectionService(Pref.getAirPlayAllowAppSharing());
+    startMediaProjectionService(
+        Pref.getAirPlayAllowAppSharing() && !Pref.getAirPlayTvAppsMode());
   }
 
   public void startMediaProjectionService() {

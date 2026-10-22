@@ -239,6 +239,48 @@
                 android:layout_width="wrap_content" android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <!-- TV Apps: an independent virtual display, no Extend companion required. -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp" android:paddingTop="20dp" android:paddingBottom="4dp"
+            android:text="@string/airlink_tv_apps_section"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:textColor="?colorPrimary" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:minHeight="68dp" android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="16dp" android:paddingVertical="12dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:layout_marginEnd="16dp" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/airlink_tv_apps_title"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/airlink_tv_apps_description"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?colorOnSurfaceVariant" />
+            </LinearLayout>
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/airplay_tv_apps_switch"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/airplay_tv_apps_choose_btn"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+            android:visibility="gone" android:text="@string/airlink_tv_apps_choose" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/airplay_tv_apps_control_btn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+            android:visibility="gone" android:text="@string/airlink_tv_apps_control" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp" android:paddingBottom="12dp"
+            android:text="@string/airlink_tv_apps_note"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?colorOnSurfaceVariant" />
+
         <!-- Output settings -->
         <TextView
             android:layout_width="wrap_content"

@@ -21,6 +21,7 @@ public class AirPlayState {
     surface = newSurface;
     if (changed) {
       State.refreshMainActivity();
+      if (displayId > 0) AirPlayTvApps.onDisplayReady(displayId);
     }
   }
 

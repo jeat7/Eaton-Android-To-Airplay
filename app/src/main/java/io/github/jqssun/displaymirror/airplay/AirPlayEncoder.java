@@ -79,10 +79,12 @@ public class AirPlayEncoder {
       boolean rotate = Pref.getRotateWithContent();
       boolean crop = Pref.getCropBlackBorders();
       // A user-selected app must stream from MediaProjection, not a trusted Extend display.
+      boolean tvApps = AirPlayService.getInstance().isTvAppsSessionMode();
       boolean appSharing =
-          android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+          !tvApps
+              && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
               && Pref.getAirPlayAllowAppSharing();
-      if ((CreateVirtualDisplay.streamMirrors() || appSharing) && (rotate || crop)) {
+      if (!tvApps && (CreateVirtualDisplay.streamMirrors() || appSharing) && (rotate || crop)) {
         pipeline =
             new StreamRenderer(
                 new VirtualDisplayArgs("AirPlay", screenWidth, screenHeight, fps, screenDpi, false),
@@ -95,7 +97,8 @@ public class AirPlayEncoder {
                   CreateVirtualDisplay.createForStream(
                       new VirtualDisplayArgs("AirPlay", w, h, fps, screenDpi, false),
                       input,
-                      appSharing);
+                      appSharing,
+                      tvApps);
               if (virtualDisplay == null) {
                 State.log("AirPlay: failed to create virtual display");
                 AirPlayState.clearTouchTarget();
@@ -111,7 +114,8 @@ public class AirPlayEncoder {
                 new VirtualDisplayArgs(
                     "AirPlay", screenWidth, screenHeight, fps, screenDpi, rotate),
                 inputSurface,
-                appSharing);
+                appSharing,
+                tvApps);
         if (virtualDisplay == null) {
           State.log("AirPlay: failed to create virtual display");
           AirPlayState.clearTouchTarget();

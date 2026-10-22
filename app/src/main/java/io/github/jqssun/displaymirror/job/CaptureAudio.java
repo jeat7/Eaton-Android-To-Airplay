@@ -79,7 +79,12 @@ public final class CaptureAudio {
   not used by Moonlight, its native side reads float off the recorder object
   */
   public static PcmStream openPcm16(MediaProjection projection, int sampleRate) {
-    if (Pref.getUseGlobalAudioCapture()) {
+    return openPcm16(projection, sampleRate, -1);
+  }
+
+  public static PcmStream openPcm16(MediaProjection projection, int sampleRate, int matchingUid) {
+    // TV app audio must not include the full phone output, even with global capture enabled.
+    if (matchingUid < 0 && Pref.getUseGlobalAudioCapture()) {
       // projection service kicks the bind async, so first capture races it
       if (ShizukuUtils.hasPermission()) {
         State.awaitUserService(SUBMIX_BIND_TIMEOUT_MS);
@@ -102,7 +107,8 @@ public final class CaptureAudio {
       return null;
     }
     AudioRecord record =
-        startPlaybackCapture(projection, sampleRate, AudioFormat.ENCODING_PCM_16BIT);
+        startPlaybackCapture(projection, sampleRate, AudioFormat.ENCODING_PCM_16BIT,
+            matchingUid);
     if (record == null) {
       return null;
     }
@@ -127,6 +133,11 @@ public final class CaptureAudio {
   // recording AudioRecord over projection playback, null when unavailable
   public static AudioRecord startPlaybackCapture(
       MediaProjection projection, int sampleRate, int encoding) {
+    return startPlaybackCapture(projection, sampleRate, encoding, -1);
+  }
+
+  public static AudioRecord startPlaybackCapture(
+      MediaProjection projection, int sampleRate, int encoding, int matchingUid) {
     if (Build.VERSION.SDK_INT < AndroidVersions.API_29_ANDROID_10) {
       State.log("playback capture needs Android 10 or newer");
       return null;
@@ -136,10 +147,11 @@ public final class CaptureAudio {
       return null;
     }
     try {
-      AudioPlaybackCaptureConfiguration config =
+      AudioPlaybackCaptureConfiguration.Builder builder =
           new AudioPlaybackCaptureConfiguration.Builder(projection)
-              .excludeUsage(AudioAttributes.USAGE_ALARM)
-              .build();
+              .excludeUsage(AudioAttributes.USAGE_ALARM);
+      if (matchingUid >= 0) builder.addMatchingUid(matchingUid);
+      AudioPlaybackCaptureConfiguration config = builder.build();
       AudioRecord record =
           new AudioRecord.Builder()
               .setAudioPlaybackCaptureConfig(config)
