@@ -33,13 +33,19 @@ public class CreateVirtualDisplay {
 
   public static VirtualDisplay createVirtualDisplay(
       VirtualDisplayArgs virtualDisplayArgs, Surface surface) {
+    return createVirtualDisplay(virtualDisplayArgs, surface, false);
+  }
+
+  private static VirtualDisplay createVirtualDisplay(
+      VirtualDisplayArgs virtualDisplayArgs, Surface surface, boolean forceOwnContent) {
     if (ShizukuUtils.hasPermission()) {
-      VirtualDisplay virtualDisplay = _createByShizukuWithFallback(virtualDisplayArgs, surface);
+      VirtualDisplay virtualDisplay =
+          _createByShizukuWithFallback(virtualDisplayArgs, surface, forceOwnContent);
       android.util.Log.i(
           "CreateVirtualDisplay",
           "created virtual display: " + virtualDisplay.getDisplay().getDisplayId());
       State.setMediaProjection(null);
-      if (!Pref.getMirrorOnly()) {
+      if (forceOwnContent || !Pref.getMirrorOnly()) {
         _showCastPlaceholder(virtualDisplay.getDisplay().getDisplayId());
       }
       return virtualDisplay;
@@ -64,6 +70,24 @@ public class CreateVirtualDisplay {
   // App-window capture must use the consented MediaProjection, even when Shizuku is enabled.
   public static VirtualDisplay createForStream(
       VirtualDisplayArgs args, Surface surface, boolean forceMediaProjection) {
+    return createForStream(args, surface, forceMediaProjection, false);
+  }
+
+  // TV Apps never falls back to screen mirroring; this protects private phone content.
+  public static VirtualDisplay createForStream(
+      VirtualDisplayArgs args, Surface surface, boolean forceMediaProjection, boolean tvApps) {
+    if (tvApps) {
+      if (!ShizukuUtils.hasPermission()) {
+        State.log("TV Apps: Shizuku permission required for independent display");
+        return null;
+      }
+      try {
+        return createVirtualDisplay(args, surface, true);
+      } catch (Throwable e) {
+        State.log("TV Apps: independent display failed: " + e.getMessage());
+        return null;
+      }
+    }
     if (!forceMediaProjection && ShizukuUtils.hasPermission() && Pref.getTrustedDisplay()) {
       // decide before createVirtualDisplay nulls State's projection slot
       boolean mirror = streamMirrors() && State.getMediaProjection() != null;
@@ -111,23 +135,23 @@ public class CreateVirtualDisplay {
 
   // custom flags the service rejects get logged, then retried with the automatic set
   private static @NonNull VirtualDisplay _createByShizukuWithFallback(
-      VirtualDisplayArgs virtualDisplayArgs, Surface surface) {
+      VirtualDisplayArgs virtualDisplayArgs, Surface surface, boolean forceOwnContent) {
     int structural = _structuralFlags(true, virtualDisplayArgs.rotatesWithContent);
     int flags = structural | DisplayFlags.current();
     int autoFlags = structural | DisplayFlags.auto();
     try {
-      return _createByShizuku(virtualDisplayArgs, surface, flags);
+      return _createByShizuku(virtualDisplayArgs, surface, flags, forceOwnContent);
     } catch (RuntimeException e) {
       if (flags == autoFlags) {
         throw e;
       }
       State.log("custom display flags rejected (" + e.getMessage() + "), retrying with automatic");
-      return _createByShizuku(virtualDisplayArgs, surface, autoFlags);
+      return _createByShizuku(virtualDisplayArgs, surface, autoFlags, forceOwnContent);
     }
   }
 
   private static @NonNull VirtualDisplay _createByShizuku(
-      VirtualDisplayArgs virtualDisplayArgs, Surface surface, int flags) {
+      VirtualDisplayArgs virtualDisplayArgs, Surface surface, int flags, boolean forceOwnContent) {
     int virtualDisplayWidth = virtualDisplayArgs.width;
     IDisplayManager displayManager = ServiceUtils.getDisplayManager();
     VirtualDisplayConfig config = null;
@@ -146,7 +170,7 @@ public class CreateVirtualDisplay {
     // mirroring, otherwise keep it null so shell owns a trusted own-content display
     IMediaProjection projection = null;
     MediaProjection mediaProjection = State.getMediaProjection();
-    if (Pref.getMirrorOnly() && mediaProjection != null) {
+    if (!forceOwnContent && Pref.getMirrorOnly() && mediaProjection != null) {
       MediaProjectionHidden hidden = Refine.unsafeCast(mediaProjection);
       projection = hidden.getProjection();
     }
