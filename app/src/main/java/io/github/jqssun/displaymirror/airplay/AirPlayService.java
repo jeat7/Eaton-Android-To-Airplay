@@ -9,6 +9,7 @@ import io.github.jqssun.displaymirror.CastPlaceholderActivity;
 import io.github.jqssun.displaymirror.MainActivity;
 import io.github.jqssun.displaymirror.Pref;
 import io.github.jqssun.displaymirror.State;
+import io.github.jqssun.displaymirror.shizuku.ShizukuUtils;
 import io.github.jqssun.displaymirror.job.CreateVirtualDisplay;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -40,6 +41,7 @@ public class AirPlayService {
   private AirPlayListener listener;
   private final List<AirPlayDevice> devices = new ArrayList<>();
   private boolean connected;
+  private volatile boolean tvAppsSessionMode;
   private AirPlayEncoder encoder;
   private AirPlayAudio audio;
   private MediaProjection projection;
@@ -82,6 +84,10 @@ public class AirPlayService {
 
   public boolean isConnected() {
     return connected;
+  }
+
+  public boolean isTvAppsSessionMode() {
+    return tvAppsSessionMode;
   }
 
   private void _ensureSession() {
@@ -228,6 +234,15 @@ public class AirPlayService {
       session = null;
     }
     connected = false;
+    tvAppsSessionMode = Pref.getAirPlayTvAppsMode();
+    if (tvAppsSessionMode && !ShizukuUtils.hasPermission()) {
+      State.log("TV Apps: Shizuku not ready, refusing unsafe mirror fallback");
+      mainHandler.post(() -> {
+        if (listener != null) listener.onDisconnected("Shizuku required for TV Apps");
+        if (listener != null) listener.onError("Enable Shizuku before using TV Apps");
+      });
+      return;
+    }
 
     pendingHost = host;
     pendingPort = port;
@@ -272,14 +287,31 @@ public class AirPlayService {
     if (session != null && encoder.screenWidth > 0 && encoder.screenHeight > 0) {
       session.setAirPlay1FrameSize(encoder.screenWidth, encoder.screenHeight);
     }
-    if (session != null && session.hasAudio()) {
+    if (!tvAppsSessionMode && session != null && session.hasAudio()) {
       audio = new AirPlayAudio();
       audio.start(projection);
     }
   }
 
+  // TV Apps captures only the chosen application UID, never the phone-wide submix.
+  public void onTvAppLaunched(String packageName) {
+    if (!connected || !tvAppsSessionMode || session == null || !session.hasAudio()) return;
+    Context context = State.getContext();
+    if (context == null || projection == null) return;
+    try {
+      int uid = context.getPackageManager().getApplicationInfo(packageName, 0).uid;
+      if (audio != null) audio.stop();
+      audio = new AirPlayAudio();
+      audio.start(projection, uid);
+      State.log("TV Apps: audio restricted to selected application UID");
+    } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+      State.log("TV Apps: cannot identify audio source: " + packageName);
+    }
+  }
+
   public void disconnect() {
     _stopEncoder();
+    tvAppsSessionMode = false;
     if (session != null) {
       session.disconnect();
       session = null;
